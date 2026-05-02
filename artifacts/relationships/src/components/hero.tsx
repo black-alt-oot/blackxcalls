@@ -36,7 +36,7 @@ export default function Hero() {
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 fade-in-up" style={{ animationDelay: "0.3s" }}>
           <a
-            href="https://t.me/Blackxcalls"
+            href="https://t.me/blackxcallz"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-3 px-8 py-4 rounded-xl font-bold text-lg text-white transition-all glow-red"
@@ -49,15 +49,17 @@ export default function Hero() {
             </svg>
             Join FREE Channel
           </a>
-          <button
-            onClick={() => scrollTo("#vip")}
+          <a
+            href="https://t.me/blck_xxxx"
+            target="_blank"
+            rel="noopener noreferrer"
             className="flex items-center gap-2 px-8 py-4 rounded-xl font-bold text-lg transition-all"
             style={{ border: "2px solid rgba(220,38,38,0.5)", color: "#dc2626", minWidth: "220px", justifyContent: "center", background: "transparent" }}
-            onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.borderColor = "#dc2626"; (e.currentTarget as HTMLButtonElement).style.background = "rgba(220,38,38,0.08)"; }}
-            onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(220,38,38,0.5)"; (e.currentTarget as HTMLButtonElement).style.background = "transparent"; }}
+            onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.borderColor = "#dc2626"; (e.currentTarget as HTMLAnchorElement).style.background = "rgba(220,38,38,0.08)"; }}
+            onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.borderColor = "rgba(220,38,38,0.5)"; (e.currentTarget as HTMLAnchorElement).style.background = "transparent"; }}
           >
-            ⚡ Get VIP Access
-          </button>
+            ⚡ Contact Main Desk
+          </a>
         </div>
 
         <div className="grid grid-cols-3 gap-6 sm:gap-10 max-w-lg mx-auto mt-16 fade-in-up" style={{ animationDelay: "0.4s" }}>
