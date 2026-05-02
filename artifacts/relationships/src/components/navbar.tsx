@@ -8,7 +8,6 @@ export default function Navbar() {
   const navLinks = [
     { label: "Signals", href: "#signals" },
     { label: "Performance", href: "#performance" },
-    { label: "VIP", href: "#vip" },
     { label: "Testimonials", href: "#testimonials" },
   ];
 
@@ -43,7 +42,7 @@ export default function Navbar() {
 
           <div className="hidden md:flex items-center gap-3">
             <a
-              href="https://t.me/Blackxcalls"
+              href="https://t.me/blackxcallz"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-bold text-white transition-all glow-red-sm"
@@ -92,7 +91,7 @@ export default function Navbar() {
             ))}
             <div className="flex flex-col gap-2 mt-3 pt-3" style={{ borderTop: "1px solid rgba(220,38,38,0.15)" }}>
               <a
-                href="https://t.me/Blackxcalls"
+                href="https://t.me/blackxcallz"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-sm font-bold text-white"
