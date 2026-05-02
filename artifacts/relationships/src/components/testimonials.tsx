@@ -24,7 +24,7 @@ const testimonials = [
     handle: "@dan_tradez",
     avatar: "DR",
     avatarColor: "#f7931a",
-    text: "Win rate is legit. I track every call in a spreadsheet and we're at 94% for this quarter. The early entry alerts are worth the VIP price alone — I'm often 8-12% ahead before public channels.",
+    text: "Win rate is legit. I track every call in a spreadsheet and we're at 94% for this quarter. The early entry alerts are incredible — I'm often 8-12% ahead before other channels.",
     pnl: "94% WR",
     timeframe: "Q1 2025",
     verified: true,
@@ -44,7 +44,7 @@ const testimonials = [
     handle: "@jakecrypt",
     avatar: "JT",
     avatarColor: "#627eea",
-    text: "The SOL call last month was absolutely wild — entry at $168, hit TP2 at $210. That's +25% in 4 days. I've compounded my initial stack 6x since joining VIP. No cap.",
+    text: "The SOL call last month was absolutely wild — entry at $168, hit TP2 at $210. That's +25% in 4 days. I've compounded my initial stack 6x since joining. No cap.",
     pnl: "+6x",
     timeframe: "2 months",
     verified: true,
@@ -54,7 +54,7 @@ const testimonials = [
     handle: "@carlosbtrader",
     avatar: "CB",
     avatarColor: "#eab308",
-    text: "Been here since day 1. The ELITE plan with 1-on-1 mentorship is a game changer. Learned more about risk management in one session than I did in 2 years of solo trading.",
+    text: "Been here since day 1. The signals and guidance here are a game changer. Learned more about risk management following these calls than I did in 2 years of solo trading.",
     pnl: "+$31K",
     timeframe: "5 months",
     verified: true,
@@ -125,7 +125,7 @@ export default function Testimonials() {
 
         <div className="text-center mt-12">
           <a
-            href="https://t.me/Blackxcalls"
+            href="https://t.me/blackxcallz"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-3 px-8 py-4 rounded-xl font-bold text-lg text-white transition-all glow-red"
