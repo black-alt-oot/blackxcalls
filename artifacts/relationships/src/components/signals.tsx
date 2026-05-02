@@ -174,12 +174,6 @@ export default function Signals() {
           })}
         </div>
 
-        <div className="text-center mt-10">
-          <div className="inline-flex items-center gap-2 px-5 py-3 rounded-xl text-sm text-gray-500" style={{ background: "#111111", border: "1px solid rgba(220,38,38,0.15)" }}>
-            <span className="w-2 h-2 rounded-full pulse-dot" style={{ background: "#dc2626" }} />
-            VIP members receive 10–15 exclusive signals per week with earlier entries
-          </div>
-        </div>
       </div>
     </section>
   );
