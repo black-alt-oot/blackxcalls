@@ -23,7 +23,7 @@ export default function Footer() {
               Premium crypto trading signals with elite precision. Join thousands of traders banking consistent profits daily.
             </p>
             <a
-              href="https://t.me/Blackxcalls"
+              href="https://t.me/blackxcallz"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold text-white transition-all"
@@ -44,7 +44,6 @@ export default function Footer() {
               {[
                 { label: "Signals", id: "#signals" },
                 { label: "Performance", id: "#performance" },
-                { label: "VIP Plans", id: "#vip" },
                 { label: "Testimonials", id: "#testimonials" },
               ].map((l) => (
                 <li key={l.label}>
@@ -63,9 +62,8 @@ export default function Footer() {
             <h4 className="font-bold text-white text-sm mb-5 tracking-wider">COMMUNITY</h4>
             <ul className="space-y-3">
               {[
-                { label: "Free Telegram", href: "https://t.me/Blackxcalls" },
-                { label: "VIP Group", href: "https://t.me/aje_4" },
-                { label: "Contact Admin", href: "https://t.me/aje_4" },
+                { label: "Free Telegram", href: "https://t.me/blackxcallz" },
+                { label: "Contact Admin", href: "https://t.me/blck_xxxx" },
                 { label: "Admin Panel", admin: true },
               ].map((l) => (
                 <li key={l.label}>
