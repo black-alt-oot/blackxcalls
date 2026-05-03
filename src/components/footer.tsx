@@ -89,7 +89,7 @@ export default function Footer() {
 
         <div className="flex flex-col sm:flex-row items-center justify-between pt-8 gap-4" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
           <p className="text-gray-600 text-xs text-center sm:text-left">
-            © 2025 BLACK X CALLS. All rights reserved.
+            © 2026 BLACK X CALLS. All rights reserved.
           </p>
           <p className="text-gray-700 text-xs text-center sm:text-right max-w-md">
             <span style={{ color: "#dc2626" }}>RISK DISCLAIMER:</span> Crypto trading involves significant risk. Past performance does not guarantee future results. Trade responsibly.
