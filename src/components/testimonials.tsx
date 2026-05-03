@@ -16,7 +16,7 @@ const testimonials = [
     avatarColor: "#9945ff",
     text: "I've tried 5 different signal groups before. None come close. The transparency here is real — they show losses too. Made +$14K in April alone just following the BTC and ETH calls.",
     pnl: "+$14K",
-    timeframe: "April 2025",
+    timeframe: "April 2026",
     verified: true,
   },
   {
@@ -26,7 +26,7 @@ const testimonials = [
     avatarColor: "#f7931a",
     text: "Win rate is legit. I track every call in a spreadsheet and we're at 94% for this quarter. The early entry alerts are worth the VIP price alone — I'm often 8-12% ahead before public channels.",
     pnl: "94% WR",
-    timeframe: "Q1 2025",
+    timeframe: "Q1 2026",
     verified: true,
   },
   {
