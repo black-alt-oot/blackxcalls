@@ -76,8 +76,8 @@ export default function Stats() {
               })}
             </div>
             <div className="flex justify-between mt-2">
-              <span className="text-gray-600 text-xs">Jan 2025</span>
-              <span className="text-gray-600 text-xs">Dec 2025</span>
+              <span className="text-gray-600 text-xs">Jan 2026</span>
+              <span className="text-gray-600 text-xs">Dec 2026</span>
             </div>
           </div>
 
