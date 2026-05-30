@@ -11,14 +11,14 @@ const highlights = [
 ];
 
 const recentTrades = [
-  { pair: "BTC/USDT", result: "+24.3%", type: "LONG", date: "Apr 28" },
-  { pair: "SOL/USDT", result: "+41.7%", type: "LONG", date: "Apr 27" },
-  { pair: "ETH/USDT", result: "+18.9%", type: "LONG", date: "Apr 26" },
-  { pair: "AVAX/USDT", result: "+33.2%", type: "SHORT", date: "Apr 25" },
-  { pair: "BNB/USDT", result: "+29.6%", type: "LONG", date: "Apr 24" },
-  { pair: "LINK/USDT", result: "+52.1%", type: "LONG", date: "Apr 23" },
-  { pair: "XRP/USDT", result: "-4.2%", type: "LONG", date: "Apr 22" },
-  { pair: "DOT/USDT", result: "+16.8%", type: "SHORT", date: "Apr 21" },
+  { pair: "BTC/USDT", result: "+24.3%", type: "LONG", date: "May 29" },
+  { pair: "SOL/USDT", result: "+41.7%", type: "LONG", date: "May 28" },
+  { pair: "ETH/USDT", result: "+18.9%", type: "LONG", date: "May 27" },
+  { pair: "AVAX/USDT", result: "+33.2%", type: "SHORT", date: "May 26" },
+  { pair: "BNB/USDT", result: "+29.6%", type: "LONG", date: "May 25" },
+  { pair: "LINK/USDT", result: "+52.1%", type: "LONG", date: "May 24" },
+  { pair: "XRP/USDT", result: "-4.2%", type: "LONG", date: "May 23" },
+  { pair: "DOT/USDT", result: "+16.8%", type: "SHORT", date: "May 22" },
 ];
 
 export default function Stats() {
@@ -76,8 +76,8 @@ export default function Stats() {
               })}
             </div>
             <div className="flex justify-between mt-2">
-              <span className="text-gray-600 text-xs">Jan 2025</span>
-              <span className="text-gray-600 text-xs">Dec 2025</span>
+              <span className="text-gray-600 text-xs">Jan 2026</span>
+              <span className="text-gray-600 text-xs">Dec 2026</span>
             </div>
           </div>
 
