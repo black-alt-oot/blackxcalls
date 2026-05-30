@@ -17,8 +17,8 @@ type Signal = {
 };
 
 const initialSignals: Signal[] = [
-  { id: "1", pair: "BTC/USDT", type: "LONG", entry: "64200", tp1: "67500", tp2: "71000", sl: "62800", leverage: "5x", status: "ACTIVE", note: "Strong support at 64k", timestamp: "2025-04-30 10:22" },
-  { id: "2", pair: "ETH/USDT", type: "LONG", entry: "3420", tp1: "3750", tp2: "4100", sl: "3280", leverage: "3x", status: "ACTIVE", note: "Breakout incoming", timestamp: "2025-04-30 08:15" },
+  { id: "1", pair: "BTC/USDT", type: "LONG", entry: "64200", tp1: "67500", tp2: "71000", sl: "62800", leverage: "5x", status: "ACTIVE", note: "Strong support at 64k", timestamp: "2026-05-29 10:22" },
+  { id: "2", pair: "ETH/USDT", type: "LONG", entry: "3420", tp1: "3750", tp2: "4100", sl: "3280", leverage: "3x", status: "ACTIVE", note: "Breakout incoming", timestamp: "2026-05-29 08:15" },
 ];
 
 export default function Admin() {
