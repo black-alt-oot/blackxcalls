@@ -82,10 +82,20 @@ function ChartCard({ pair, interval, expanded, onExpand }: {
             <span className="text-gray-600 text-xs">Live</span>
           </span>
           <span
-            className="text-gray-500 text-xs px-2 py-0.5 rounded"
-            style={{ background: "rgba(255,255,255,0.05)" }}
+            className="flex items-center justify-center w-6 h-6 rounded"
+            style={{ background: "rgba(255,255,255,0.05)", color: "#6b7280" }}
           >
-            {expanded ? "⊠" : "⊞"}
+            {expanded ? (
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="4 14 10 14 10 20" /><polyline points="20 10 14 10 14 4" />
+                <line x1="10" y1="14" x2="3" y2="21" /><line x1="21" y1="3" x2="14" y2="10" />
+              </svg>
+            ) : (
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="15 3 21 3 21 9" /><polyline points="9 21 3 21 3 15" />
+                <line x1="21" y1="3" x2="14" y2="10" /><line x1="3" y1="21" x2="10" y2="14" />
+              </svg>
+            )}
           </span>
         </div>
       </div>
