@@ -7,6 +7,7 @@ export default function Navbar() {
 
   const navLinks = [
     { label: "Signals", href: "#signals" },
+    { label: "Charts", href: "#charts" },
     { label: "Performance", href: "#performance" },
     { label: "Testimonials", href: "#testimonials" },
   ];
