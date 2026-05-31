@@ -11,12 +11,12 @@ const SIGNALS_FILE = "artifacts/relationships/src/data/signals.json";
 const SCAN_INTERVAL_MS = 15 * 60 * 1000;
 
 const PAIRS = [
-  { coin: "BTC", pair: "BTC/USDT", symbol: "BTCUSDT", tvSymbol: "BINANCE:BTCUSDT", leverage: "5x" },
-  { coin: "ETH", pair: "ETH/USDT", symbol: "ETHUSDT", tvSymbol: "BINANCE:ETHUSDT", leverage: "3x" },
-  { coin: "SOL", pair: "SOL/USDT", symbol: "SOLUSDT", tvSymbol: "BINANCE:SOLUSDT", leverage: "4x" },
-  { coin: "AVAX", pair: "AVAX/USDT", symbol: "AVAXUSDT", tvSymbol: "BINANCE:AVAXUSDT", leverage: "5x" },
-  { coin: "LINK", pair: "LINK/USDT", symbol: "LINKUSDT", tvSymbol: "BINANCE:LINKUSDT", leverage: "3x" },
-  { coin: "BNB", pair: "BNB/USDT", symbol: "BNBUSDT", tvSymbol: "BINANCE:BNBUSDT", leverage: "6x" },
+  { coin: "BTC", pair: "BTC/USDT", cgId: "bitcoin",      tvSymbol: "BINANCE:BTCUSDT", leverage: "5x" },
+  { coin: "ETH", pair: "ETH/USDT", cgId: "ethereum",     tvSymbol: "BINANCE:ETHUSDT", leverage: "3x" },
+  { coin: "SOL", pair: "SOL/USDT", cgId: "solana",       tvSymbol: "BINANCE:SOLUSDT", leverage: "4x" },
+  { coin: "AVAX", pair: "AVAX/USDT", cgId: "avalanche-2", tvSymbol: "BINANCE:AVAXUSDT", leverage: "5x" },
+  { coin: "LINK", pair: "LINK/USDT", cgId: "chainlink",  tvSymbol: "BINANCE:LINKUSDT", leverage: "3x" },
+  { coin: "BNB", pair: "BNB/USDT", cgId: "binancecoin", tvSymbol: "BINANCE:BNBUSDT", leverage: "6x" },
 ];
 
 function calculateRSI(closes: number[], period = 14): number {
@@ -44,14 +44,14 @@ function calculateEMA(closes: number[], period: number): number[] {
   return emas;
 }
 
-async function fetchCandles(symbol: string): Promise<number[]> {
-  // Bybit V5 API — globally accessible, no geo-restrictions
-  const res = await axios.get("https://api.bybit.com/v5/market/kline", {
-    params: { category: "linear", symbol, interval: "60", limit: 100 },
-  });
-  const list = (res.data as { result: { list: string[][] } }).result.list;
-  // Bybit returns newest first, reverse so oldest→newest, index 4 = close price
-  return list.reverse().map((k) => parseFloat(k[4]!));
+async function fetchCandles(cgId: string): Promise<number[]> {
+  // CoinGecko free API — no geo-restrictions, hourly prices for last 5 days
+  const res = await axios.get(
+    `https://api.coingecko.com/api/v3/coins/${cgId}/market_chart`,
+    { params: { vs_currency: "usd", days: 5, interval: "hourly" } },
+  );
+  const prices = (res.data as { prices: [number, number][] }).prices;
+  return prices.map((p) => p[1]);
 }
 
 function formatPrice(price: number): string {
@@ -115,7 +115,7 @@ async function scanSignals(bot: TelegramBot): Promise<void> {
   logger.info("Scanning pairs for signals...");
   for (const p of PAIRS) {
     try {
-      const closes = await fetchCandles(p.symbol);
+      const closes = await fetchCandles(p.cgId);
       const rsi = calculateRSI(closes);
       const ema20 = calculateEMA(closes, 20);
       const ema50 = calculateEMA(closes, 50);
