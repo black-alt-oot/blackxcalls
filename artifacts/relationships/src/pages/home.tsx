@@ -4,7 +4,6 @@ import Ticker from "@/components/ticker";
 import Signals from "@/components/signals";
 import Charts from "@/components/charts";
 import Stats from "@/components/stats";
-import VIP from "@/components/vip";
 import Testimonials from "@/components/testimonials";
 import Footer from "@/components/footer";
 import SignalAlertBanner from "@/components/signal-alert-banner";
@@ -19,7 +18,6 @@ export default function Home() {
       <Signals />
       <Charts />
       <Stats />
-      <VIP />
       <Testimonials />
       <Footer />
     </div>
