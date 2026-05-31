@@ -18,7 +18,7 @@ const plans = [
       "Portfolio review",
     ],
     cta: "Join Free",
-    ctaLink: "https://t.me/Blackxcalls",
+    ctaLink: "https://t.me/blackxcallz",
     popular: false,
   },
   {
