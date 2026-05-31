@@ -9,6 +9,7 @@ export default function Navbar() {
     { label: "Signals", href: "#signals" },
     { label: "Charts", href: "#charts" },
     { label: "Performance", href: "#performance" },
+    { label: "VIP Plans", href: "#vip" },
     { label: "Testimonials", href: "#testimonials" },
   ];
 
