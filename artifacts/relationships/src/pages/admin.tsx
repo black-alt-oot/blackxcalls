@@ -2,6 +2,95 @@ import { useState } from "react";
 import { useLocation } from "wouter";
 import { useSignalAlerts } from "@/hooks/use-signal-alerts";
 
+const ADMIN_PASS = "112018mm";
+const SESSION_KEY = "bxcalls_admin_auth";
+
+function PasswordGate({ onAuth }: { onAuth: () => void }) {
+  const [value, setValue] = useState("");
+  const [error, setError] = useState(false);
+  const [shake, setShake] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (value === ADMIN_PASS) {
+      sessionStorage.setItem(SESSION_KEY, "1");
+      onAuth();
+    } else {
+      setError(true);
+      setShake(true);
+      setValue("");
+      setTimeout(() => setShake(false), 500);
+    }
+  };
+
+  return (
+    <div className="min-h-screen flex items-center justify-center px-4" style={{ background: "#080808" }}>
+      <div
+        className="w-full max-w-sm rounded-2xl p-8"
+        style={{
+          background: "#111111",
+          border: "1px solid rgba(220,38,38,0.2)",
+          boxShadow: "0 0 60px rgba(220,38,38,0.08)",
+          animation: shake ? "shake 0.4s ease" : "none",
+        }}
+      >
+        <style>{`
+          @keyframes shake {
+            0%,100% { transform: translateX(0); }
+            20% { transform: translateX(-8px); }
+            40% { transform: translateX(8px); }
+            60% { transform: translateX(-6px); }
+            80% { transform: translateX(6px); }
+          }
+        `}</style>
+
+        <div className="text-center mb-8">
+          <div className="w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-4" style={{ background: "rgba(220,38,38,0.1)", border: "1px solid rgba(220,38,38,0.2)" }}>
+            <span className="text-2xl">🔒</span>
+          </div>
+          <h1 className="font-black text-white text-xl mb-1">Admin Access</h1>
+          <p className="text-gray-600 text-sm">Enter your password to continue</p>
+        </div>
+
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <input
+              type="password"
+              value={value}
+              onChange={(e) => { setValue(e.target.value); setError(false); }}
+              placeholder="Password"
+              autoFocus
+              className="w-full px-4 py-3 rounded-xl text-white text-sm outline-none transition-all"
+              style={{
+                background: "#191919",
+                border: `1px solid ${error ? "#dc2626" : "rgba(255,255,255,0.08)"}`,
+              }}
+              onFocus={e => (e.currentTarget.style.borderColor = error ? "#dc2626" : "rgba(220,38,38,0.5)")}
+              onBlur={e => (e.currentTarget.style.borderColor = error ? "#dc2626" : "rgba(255,255,255,0.08)")}
+            />
+            {error && (
+              <p className="text-xs mt-2" style={{ color: "#dc2626" }}>Incorrect password. Try again.</p>
+            )}
+          </div>
+          <button
+            type="submit"
+            className="w-full py-3 rounded-xl font-bold text-sm text-white transition-all"
+            style={{ background: "#dc2626" }}
+            onMouseEnter={e => (e.currentTarget.style.background = "#b91c1c")}
+            onMouseLeave={e => (e.currentTarget.style.background = "#dc2626")}
+          >
+            Enter Panel
+          </button>
+        </form>
+
+        <p className="text-center text-gray-700 text-xs mt-6">
+          BLACK<span style={{ color: "#dc2626" }}>X</span>CALLS Admin
+        </p>
+      </div>
+    </div>
+  );
+}
+
 type Signal = {
   id: string;
   pair: string;
@@ -21,7 +110,20 @@ const initialSignals: Signal[] = [
   { id: "2", pair: "ETH/USDT", type: "LONG", entry: "3420", tp1: "3750", tp2: "4100", sl: "3280", leverage: "3x", status: "ACTIVE", note: "Breakout incoming", timestamp: "2026-05-29 08:15" },
 ];
 
+const defaultForm: Omit<Signal, "id" | "timestamp"> = {
+  pair: "",
+  type: "LONG",
+  entry: "",
+  tp1: "",
+  tp2: "",
+  sl: "",
+  leverage: "3x",
+  status: "ACTIVE",
+  note: "",
+};
+
 export default function Admin() {
+  const [authed, setAuthed] = useState(() => sessionStorage.getItem(SESSION_KEY) === "1");
   const [, navigate] = useLocation();
   const [signals, setSignals] = useState<Signal[]>(initialSignals);
   const [showForm, setShowForm] = useState(false);
@@ -30,20 +132,9 @@ export default function Admin() {
   const { alerts, pushAlert, dismissAlert, clearAll } = useSignalAlerts();
   const [alertForm, setAlertForm] = useState({ pair: "", type: "LONG" as "LONG" | "SHORT", entry: "", message: "" });
   const [showAlertPanel, setShowAlertPanel] = useState(false);
+  const [form, setForm] = useState<Omit<Signal, "id" | "timestamp">>(defaultForm);
 
-  const defaultForm: Omit<Signal, "id" | "timestamp"> = {
-    pair: "",
-    type: "LONG",
-    entry: "",
-    tp1: "",
-    tp2: "",
-    sl: "",
-    leverage: "3x",
-    status: "ACTIVE",
-    note: "",
-  };
-
-  const [form, setForm] = useState(defaultForm);
+  if (!authed) return <PasswordGate onAuth={() => setAuthed(true)} />;
 
   const showToast = (msg: string) => {
     setToast(msg);
