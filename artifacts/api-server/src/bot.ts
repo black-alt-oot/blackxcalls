@@ -196,6 +196,34 @@ async function scanSignals(bot: TelegramBot): Promise<void> {
   }
 }
 
+async function getStatusMessage(): Promise<string> {
+  const lines: string[] = ["📊 *MARKET STATUS*\n"];
+  for (const p of PAIRS) {
+    try {
+      await delay(2500);
+      const closes = await fetchCandles(p.fsym);
+      const rsi = calculateRSI(closes);
+      const ema20 = calculateEMA(closes, 20);
+      const ema50 = calculateEMA(closes, 50);
+      const lastEma20 = ema20[ema20.length - 1]!;
+      const lastEma50 = ema50[ema50.length - 1]!;
+      const price = closes[closes.length - 1]!;
+
+      const rsiEmoji = rsi < 35 ? "🟢" : rsi > 65 ? "🔴" : "🟡";
+      const trend = lastEma20 > lastEma50 ? "⬆️ Bullish" : "⬇️ Bearish";
+
+      lines.push(
+        `*${p.pair}* — ${formatPrice(price)}\n` +
+        `RSI: ${rsi.toFixed(1)} ${rsiEmoji} | Trend: ${trend}\n`,
+      );
+    } catch {
+      lines.push(`*${p.pair}* — ⚠️ Data unavailable\n`);
+    }
+  }
+  lines.push(`_Updated: ${new Date().toUTCString()}_`);
+  return lines.join("\n");
+}
+
 export function startBot(): void {
   if (!BOT_TOKEN || !ADMIN_ID) {
     logger.warn("TELEGRAM_BOT_TOKEN or TELEGRAM_ADMIN_ID not set — bot disabled");
@@ -243,6 +271,25 @@ export function startBot(): void {
         await bot.editMessageReplyMarkup({ inline_keyboard: [] }, { chat_id: ADMIN_ID, message_id: msgId });
       }
     }
+  });
+
+  bot.onText(/\/status/, async (msg) => {
+    if (msg.chat.id !== ADMIN_ID) return;
+    await bot.sendMessage(ADMIN_ID, "⏳ Fetching live data for all pairs...");
+    const text = await getStatusMessage();
+    await bot.sendMessage(ADMIN_ID, text, { parse_mode: "Markdown" });
+  });
+
+  bot.onText(/\/help/, async (msg) => {
+    if (msg.chat.id !== ADMIN_ID) return;
+    await bot.sendMessage(
+      ADMIN_ID,
+      `*BlackXCallzBot Commands*\n\n` +
+      `/status — Live RSI + EMA readings for all pairs\n` +
+      `/help — Show this menu\n\n` +
+      `_Bot scans every 15 minutes and alerts you when a signal fires._`,
+      { parse_mode: "Markdown" },
+    );
   });
 
   bot.on("polling_error", (err) => {
