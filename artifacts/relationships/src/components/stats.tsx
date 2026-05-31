@@ -59,7 +59,7 @@ export default function Stats() {
             <div className="flex items-end gap-2 h-40">
               {months.map((m, i) => {
                 const height = (winRates[i] / maxWR) * 100;
-                const isCurrent = i === months.length - 2;
+                const isCurrent = i === 4;
                 return (
                   <div key={m} className="flex-1 flex flex-col items-center gap-1">
                     <div
