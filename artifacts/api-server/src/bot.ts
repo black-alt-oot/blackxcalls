@@ -11,12 +11,12 @@ const SIGNALS_FILE = "artifacts/relationships/src/data/signals.json";
 const SCAN_INTERVAL_MS = 15 * 60 * 1000;
 
 const PAIRS = [
-  { coin: "BTC", pair: "BTC/USDT", cgId: "bitcoin",      tvSymbol: "BINANCE:BTCUSDT", leverage: "5x" },
-  { coin: "ETH", pair: "ETH/USDT", cgId: "ethereum",     tvSymbol: "BINANCE:ETHUSDT", leverage: "3x" },
-  { coin: "SOL", pair: "SOL/USDT", cgId: "solana",       tvSymbol: "BINANCE:SOLUSDT", leverage: "4x" },
-  { coin: "AVAX", pair: "AVAX/USDT", cgId: "avalanche-2", tvSymbol: "BINANCE:AVAXUSDT", leverage: "5x" },
-  { coin: "LINK", pair: "LINK/USDT", cgId: "chainlink",  tvSymbol: "BINANCE:LINKUSDT", leverage: "3x" },
-  { coin: "BNB", pair: "BNB/USDT", cgId: "binancecoin", tvSymbol: "BINANCE:BNBUSDT", leverage: "6x" },
+  { coin: "BTC",  pair: "BTC/USDT",  fsym: "BTC",  tvSymbol: "BINANCE:BTCUSDT",  leverage: "5x" },
+  { coin: "ETH",  pair: "ETH/USDT",  fsym: "ETH",  tvSymbol: "BINANCE:ETHUSDT",  leverage: "3x" },
+  { coin: "SOL",  pair: "SOL/USDT",  fsym: "SOL",  tvSymbol: "BINANCE:SOLUSDT",  leverage: "4x" },
+  { coin: "AVAX", pair: "AVAX/USDT", fsym: "AVAX", tvSymbol: "BINANCE:AVAXUSDT", leverage: "5x" },
+  { coin: "LINK", pair: "LINK/USDT", fsym: "LINK", tvSymbol: "BINANCE:LINKUSDT", leverage: "3x" },
+  { coin: "BNB",  pair: "BNB/USDT",  fsym: "BNB",  tvSymbol: "BINANCE:BNBUSDT",  leverage: "6x" },
 ];
 
 function calculateRSI(closes: number[], period = 14): number {
@@ -44,14 +44,14 @@ function calculateEMA(closes: number[], period: number): number[] {
   return emas;
 }
 
-async function fetchCandles(cgId: string): Promise<number[]> {
-  // CoinGecko free API — no geo-restrictions, hourly prices for last 5 days
-  const res = await axios.get(
-    `https://api.coingecko.com/api/v3/coins/${cgId}/market_chart`,
-    { params: { vs_currency: "usd", days: 5, interval: "hourly" } },
-  );
-  const prices = (res.data as { prices: [number, number][] }).prices;
-  return prices.map((p) => p[1]);
+async function fetchCandles(fsym: string): Promise<number[]> {
+  // CryptoCompare — free, no geo-restrictions, 100k calls/month
+  const res = await axios.get("https://min-api.cryptocompare.com/data/v2/histohour", {
+    params: { fsym, tsym: "USD", limit: 100 },
+    headers: { "User-Agent": "BlackXCallzBot/1.0" },
+  });
+  const candles = (res.data as { Data: { Data: { close: number }[] } }).Data.Data;
+  return candles.map((c) => c.close);
 }
 
 function formatPrice(price: number): string {
@@ -120,7 +120,7 @@ async function scanSignals(bot: TelegramBot): Promise<void> {
   for (const p of PAIRS) {
     try {
       await delay(2500); // Respect CoinGecko free tier rate limit (30 req/min)
-      const closes = await fetchCandles(p.cgId);
+      const closes = await fetchCandles(p.fsym);
       const rsi = calculateRSI(closes);
       const ema20 = calculateEMA(closes, 20);
       const ema50 = calculateEMA(closes, 50);
