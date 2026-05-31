@@ -1,113 +1,25 @@
-const signals = [
-  {
-    coin: "BTC",
-    pair: "BTC/USDT",
-    tvSymbol: "BINANCE:BTCUSDT",
-    type: "LONG" as const,
-    entryNum: 64200,
-    tp1Num: 67500,
-    tp2Num: 71000,
-    slNum: 62800,
-    entry: "$64,200",
-    target1: "$67,500",
-    target2: "$71,000",
-    sl: "$62,800",
-    pnl: "+18.4%",
-    status: "ACTIVE",
-    time: "2h ago",
-    leverage: "5x",
-  },
-  {
-    coin: "ETH",
-    pair: "ETH/USDT",
-    tvSymbol: "BINANCE:ETHUSDT",
-    type: "LONG" as const,
-    entryNum: 3420,
-    tp1Num: 3750,
-    tp2Num: 4100,
-    slNum: 3280,
-    entry: "$3,420",
-    target1: "$3,750",
-    target2: "$4,100",
-    sl: "$3,280",
-    pnl: "+11.7%",
-    status: "ACTIVE",
-    time: "4h ago",
-    leverage: "3x",
-  },
-  {
-    coin: "SOL",
-    pair: "SOL/USDT",
-    tvSymbol: "BINANCE:SOLUSDT",
-    type: "LONG" as const,
-    entryNum: 168,
-    tp1Num: 185,
-    tp2Num: 210,
-    slNum: 161,
-    entry: "$168",
-    target1: "$185",
-    target2: "$210",
-    sl: "$161",
-    pnl: "+24.6%",
-    status: "HIT TP2",
-    time: "1d ago",
-    leverage: "4x",
-  },
-  {
-    coin: "AVAX",
-    pair: "AVAX/USDT",
-    tvSymbol: "BINANCE:AVAXUSDT",
-    type: "SHORT" as const,
-    entryNum: 44.2,
-    tp1Num: 39.5,
-    tp2Num: 35.0,
-    slNum: 46.8,
-    entry: "$44.2",
-    target1: "$39.5",
-    target2: "$35.0",
-    sl: "$46.8",
-    pnl: "+16.1%",
-    status: "HIT TP1",
-    time: "1d ago",
-    leverage: "5x",
-  },
-  {
-    coin: "LINK",
-    pair: "LINK/USDT",
-    tvSymbol: "BINANCE:LINKUSDT",
-    type: "LONG" as const,
-    entryNum: 16.8,
-    tp1Num: 19.2,
-    tp2Num: 22.5,
-    slNum: 15.9,
-    entry: "$16.8",
-    target1: "$19.2",
-    target2: "$22.5",
-    sl: "$15.9",
-    pnl: "+8.9%",
-    status: "ACTIVE",
-    time: "6h ago",
-    leverage: "3x",
-  },
-  {
-    coin: "BNB",
-    pair: "BNB/USDT",
-    tvSymbol: "BINANCE:BNBUSDT",
-    type: "LONG" as const,
-    entryNum: 558,
-    tp1Num: 610,
-    tp2Num: 670,
-    slNum: 535,
-    entry: "$558",
-    target1: "$610",
-    target2: "$670",
-    sl: "$535",
-    pnl: "+31.2%",
-    status: "HIT TP2",
-    time: "3d ago",
-    leverage: "6x",
-  },
-];
+import signalsData from "../data/signals.json";
+
+type Signal = {
+  coin: string;
+  pair: string;
+  tvSymbol: string;
+  type: "LONG" | "SHORT";
+  entryNum: number;
+  tp1Num: number;
+  tp2Num: number;
+  slNum: number;
+  entry: string;
+  target1: string;
+  target2: string;
+  sl: string;
+  pnl: string;
+  status: string;
+  time: string;
+  leverage: string;
+};
+
+const signals = signalsData as Signal[];
 
 const statusStyle: Record<string, { color: string; bg: string }> = {
   ACTIVE: { color: "#22c55e", bg: "rgba(34,197,94,0.1)" },
