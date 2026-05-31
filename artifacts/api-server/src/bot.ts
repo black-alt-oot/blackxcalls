@@ -45,10 +45,13 @@ function calculateEMA(closes: number[], period: number): number[] {
 }
 
 async function fetchCandles(symbol: string): Promise<number[]> {
-  const res = await axios.get("https://api.binance.com/api/v3/klines", {
-    params: { symbol, interval: "1h", limit: 100 },
+  // Bybit V5 API — globally accessible, no geo-restrictions
+  const res = await axios.get("https://api.bybit.com/v5/market/kline", {
+    params: { category: "linear", symbol, interval: "60", limit: 100 },
   });
-  return (res.data as unknown[][]).map((k) => parseFloat(k[4] as string));
+  const list = (res.data as { result: { list: string[][] } }).result.list;
+  // Bybit returns newest first, reverse so oldest→newest, index 4 = close price
+  return list.reverse().map((k) => parseFloat(k[4]!));
 }
 
 function formatPrice(price: number): string {
