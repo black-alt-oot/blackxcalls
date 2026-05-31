@@ -111,10 +111,15 @@ async function postSignalToGitHub(signal: PendingSignal): Promise<void> {
   );
 }
 
+function delay(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 async function scanSignals(bot: TelegramBot): Promise<void> {
   logger.info("Scanning pairs for signals...");
   for (const p of PAIRS) {
     try {
+      await delay(2500); // Respect CoinGecko free tier rate limit (30 req/min)
       const closes = await fetchCandles(p.cgId);
       const rsi = calculateRSI(closes);
       const ema20 = calculateEMA(closes, 20);
