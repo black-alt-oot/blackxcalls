@@ -45,6 +45,7 @@ export default function Footer() {
                 { label: "Signals", id: "#signals" },
                 { label: "Charts", id: "#charts" },
                 { label: "Performance", id: "#performance" },
+                { label: "Results", id: "#results" },
                 { label: "Testimonials", id: "#testimonials" },
               ].map((l) => (
                 <li key={l.label}>
