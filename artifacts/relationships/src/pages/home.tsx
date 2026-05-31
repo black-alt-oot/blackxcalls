@@ -2,6 +2,7 @@ import Navbar from "@/components/navbar";
 import Hero from "@/components/hero";
 import Ticker from "@/components/ticker";
 import Signals from "@/components/signals";
+import Charts from "@/components/charts";
 import Stats from "@/components/stats";
 import Testimonials from "@/components/testimonials";
 import Footer from "@/components/footer";
@@ -15,6 +16,7 @@ export default function Home() {
       <Hero />
       <Ticker />
       <Signals />
+      <Charts />
       <Stats />
       <Testimonials />
       <Footer />
