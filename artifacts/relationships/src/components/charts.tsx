@@ -19,6 +19,8 @@ const pairs = [
   { coin: "NEAR", label: "NEAR",       symbol: "BINANCE:NEARUSDT", color: "#00c08b" },
   { coin: "ARB",  label: "Arbitrum",   symbol: "BINANCE:ARBUSDT",  color: "#28a0f0" },
   { coin: "OP",   label: "Optimism",   symbol: "BINANCE:OPUSDT",   color: "#ff0420" },
+  { coin: "GOLD", label: "Gold",       symbol: "TVC:GOLD",         color: "#ffd700" },
+  { coin: "OIL",  label: "Crude Oil",  symbol: "TVC:USOIL",        color: "#8b4513" },
 ];
 
 const intervals = [
