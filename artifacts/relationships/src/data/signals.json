@@ -1,5 +1,23 @@
 [
   {
+    "coin": "GOLD",
+    "pair": "XAU/USD",
+    "tvSymbol": "TVC:GOLD",
+    "type": "LONG",
+    "entryNum": 4537.5,
+    "tp1Num": 4719,
+    "tp2Num": 4900.5,
+    "slNum": 4401.375,
+    "entry": "$4,537.5",
+    "target1": "$4,719",
+    "target2": "$4,900.5",
+    "sl": "$4,401.4",
+    "pnl": "+8%",
+    "status": "ACTIVE",
+    "time": "Just now",
+    "leverage": "10x"
+  },
+  {
     "coin": "OIL",
     "pair": "WTI/USD",
     "tvSymbol": "TVC:USOIL",
@@ -88,23 +106,5 @@
     "status": "ACTIVE",
     "time": "4h ago",
     "leverage": "3x"
-  },
-  {
-    "coin": "SOL",
-    "pair": "SOL/USDT",
-    "tvSymbol": "BINANCE:SOLUSDT",
-    "type": "LONG",
-    "entryNum": 168,
-    "tp1Num": 185,
-    "tp2Num": 210,
-    "slNum": 161,
-    "entry": "$168",
-    "target1": "$185",
-    "target2": "$210",
-    "sl": "$161",
-    "pnl": "+24.6%",
-    "status": "HIT TP2",
-    "time": "1d ago",
-    "leverage": "4x"
   }
 ]
