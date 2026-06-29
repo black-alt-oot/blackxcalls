@@ -57,6 +57,24 @@
     "coin": "BNB",
     "pair": "BNB/USDT",
     "tvSymbol": "BINANCE:BNBUSDT",
+    "type": "SHORT",
+    "entryNum": 562.25,
+    "tp1Num": 539.76,
+    "tp2Num": 517.27,
+    "slNum": 579.1175000000001,
+    "entry": "$562.25",
+    "target1": "$539.76",
+    "target2": "$517.27",
+    "sl": "$579.12",
+    "pnl": "+8%",
+    "status": "ACTIVE",
+    "time": "Just now",
+    "leverage": "6x"
+  },
+  {
+    "coin": "BNB",
+    "pair": "BNB/USDT",
+    "tvSymbol": "BINANCE:BNBUSDT",
     "type": "LONG",
     "entryNum": 689.73,
     "tp1Num": 717.3192,
@@ -88,23 +106,5 @@
     "status": "ACTIVE",
     "time": "Just now",
     "leverage": "10x"
-  },
-  {
-    "coin": "BNB",
-    "pair": "BNB/USDT",
-    "tvSymbol": "BINANCE:BNBUSDT",
-    "type": "LONG",
-    "entryNum": 689.96,
-    "tp1Num": 717.5584,
-    "tp2Num": 745.1568000000001,
-    "slNum": 669.2612,
-    "entry": "$689.96",
-    "target1": "$717.56",
-    "target2": "$745.16",
-    "sl": "$669.26",
-    "pnl": "+8%",
-    "status": "ACTIVE",
-    "time": "Just now",
-    "leverage": "6x"
   }
 ]
