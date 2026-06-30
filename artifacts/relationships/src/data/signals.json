@@ -1,5 +1,23 @@
 [
   {
+    "coin": "SOL",
+    "pair": "SOL/USDT",
+    "tvSymbol": "BINANCE:SOLUSDT",
+    "type": "LONG",
+    "entryNum": 72.74,
+    "tp1Num": 75.64959999999999,
+    "tp2Num": 78.5592,
+    "slNum": 70.55779999999999,
+    "entry": "$72.74",
+    "target1": "$75.65",
+    "target2": "$78.56",
+    "sl": "$70.56",
+    "pnl": "+8%",
+    "status": "ACTIVE",
+    "time": "Just now",
+    "leverage": "4x"
+  },
+  {
     "coin": "GOLD",
     "pair": "XAU/USD",
     "tvSymbol": "TVC:GOLD",
@@ -70,24 +88,6 @@
     "status": "ACTIVE",
     "time": "Just now",
     "leverage": "10x"
-  },
-  {
-    "coin": "BNB",
-    "pair": "BNB/USDT",
-    "tvSymbol": "BINANCE:BNBUSDT",
-    "type": "SHORT",
-    "entryNum": 562.25,
-    "tp1Num": 539.76,
-    "tp2Num": 517.27,
-    "slNum": 579.1175000000001,
-    "entry": "$562.25",
-    "target1": "$539.76",
-    "target2": "$517.27",
-    "sl": "$579.12",
-    "pnl": "+8%",
-    "status": "ACTIVE",
-    "time": "Just now",
-    "leverage": "6x"
   },
   {
     "coin": "BNB",
