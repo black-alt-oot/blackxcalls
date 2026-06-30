@@ -1,5 +1,23 @@
 [
   {
+    "coin": "AVAX",
+    "pair": "AVAX/USDT",
+    "tvSymbol": "BINANCE:AVAXUSDT",
+    "type": "LONG",
+    "entryNum": 6.418,
+    "tp1Num": 6.674720000000001,
+    "tp2Num": 6.93144,
+    "slNum": 6.22546,
+    "entry": "$6.4180",
+    "target1": "$6.6747",
+    "target2": "$6.9314",
+    "sl": "$6.2255",
+    "pnl": "+8%",
+    "status": "ACTIVE",
+    "time": "Just now",
+    "leverage": "5x"
+  },
+  {
     "coin": "SOL",
     "pair": "SOL/USDT",
     "tvSymbol": "BINANCE:SOLUSDT",
@@ -34,24 +52,6 @@
     "status": "ACTIVE",
     "time": "Just now",
     "leverage": "10x"
-  },
-  {
-    "coin": "BNB",
-    "pair": "BNB/USDT",
-    "tvSymbol": "BINANCE:BNBUSDT",
-    "type": "SHORT",
-    "entryNum": 562.25,
-    "tp1Num": 539.76,
-    "tp2Num": 517.27,
-    "slNum": 579.1175000000001,
-    "entry": "$562.25",
-    "target1": "$539.76",
-    "target2": "$517.27",
-    "sl": "$579.12",
-    "pnl": "+8%",
-    "status": "ACTIVE",
-    "time": "Just now",
-    "leverage": "6x"
   },
   {
     "coin": "BNB",
