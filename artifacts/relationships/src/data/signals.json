@@ -1,5 +1,23 @@
 [
   {
+    "coin": "BNB",
+    "pair": "BNB/USDT",
+    "tvSymbol": "BINANCE:BNBUSDT",
+    "type": "SHORT",
+    "entryNum": 554.55,
+    "tp1Num": 532.3679999999999,
+    "tp2Num": 510.186,
+    "slNum": 571.1865,
+    "entry": "$554.55",
+    "target1": "$532.37",
+    "target2": "$510.19",
+    "sl": "$571.19",
+    "pnl": "+8%",
+    "status": "ACTIVE",
+    "time": "Just now",
+    "leverage": "6x"
+  },
+  {
     "coin": "LINK",
     "pair": "LINK/USDT",
     "tvSymbol": "BINANCE:LINKUSDT",
@@ -88,23 +106,5 @@
     "status": "ACTIVE",
     "time": "Just now",
     "leverage": "10x"
-  },
-  {
-    "coin": "AVAX",
-    "pair": "AVAX/USDT",
-    "tvSymbol": "BINANCE:AVAXUSDT",
-    "type": "LONG",
-    "entryNum": 6.474,
-    "tp1Num": 6.73296,
-    "tp2Num": 6.99192,
-    "slNum": 6.27978,
-    "entry": "$6.4740",
-    "target1": "$6.7330",
-    "target2": "$6.9919",
-    "sl": "$6.2798",
-    "pnl": "+8%",
-    "status": "ACTIVE",
-    "time": "Just now",
-    "leverage": "5x"
   }
 ]
