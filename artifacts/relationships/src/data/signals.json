@@ -1,5 +1,23 @@
 [
   {
+    "coin": "BTC",
+    "pair": "BTC/USDT",
+    "tvSymbol": "BINANCE:BTCUSDT",
+    "type": "SHORT",
+    "entryNum": 59176.54,
+    "tp1Num": 56809.4784,
+    "tp2Num": 54442.416800000006,
+    "slNum": 60951.836200000005,
+    "entry": "$59,177",
+    "target1": "$56,809",
+    "target2": "$54,442",
+    "sl": "$60,952",
+    "pnl": "+8%",
+    "status": "ACTIVE",
+    "time": "Just now",
+    "leverage": "5x"
+  },
+  {
     "coin": "GOLD",
     "pair": "XAU/USD",
     "tvSymbol": "TVC:GOLD",
@@ -88,23 +106,5 @@
     "status": "ACTIVE",
     "time": "Just now",
     "leverage": "10x"
-  },
-  {
-    "coin": "AVAX",
-    "pair": "AVAX/USDT",
-    "tvSymbol": "BINANCE:AVAXUSDT",
-    "type": "LONG",
-    "entryNum": 6.418,
-    "tp1Num": 6.674720000000001,
-    "tp2Num": 6.93144,
-    "slNum": 6.22546,
-    "entry": "$6.4180",
-    "target1": "$6.6747",
-    "target2": "$6.9314",
-    "sl": "$6.2255",
-    "pnl": "+8%",
-    "status": "ACTIVE",
-    "time": "Just now",
-    "leverage": "5x"
   }
 ]
