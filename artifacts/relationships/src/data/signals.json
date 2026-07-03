@@ -36,6 +36,24 @@
     "leverage": "10x"
   },
   {
+    "coin": "OIL",
+    "pair": "WTI/USD",
+    "tvSymbol": "TVC:USOIL",
+    "type": "SHORT",
+    "entryNum": 69.01000213623047,
+    "tp1Num": 66.24960205078125,
+    "tp2Num": 63.489201965332036,
+    "slNum": 71.08030220031739,
+    "entry": "$69.01",
+    "target1": "$66.25",
+    "target2": "$63.49",
+    "sl": "$71.08",
+    "pnl": "+8%",
+    "status": "ACTIVE",
+    "time": "Just now",
+    "leverage": "10x"
+  },
+  {
     "coin": "BNB",
     "pair": "BNB/USDT",
     "tvSymbol": "BINANCE:BNBUSDT",
@@ -88,23 +106,5 @@
     "status": "ACTIVE",
     "time": "Just now",
     "leverage": "5x"
-  },
-  {
-    "coin": "OIL",
-    "pair": "WTI/USD",
-    "tvSymbol": "TVC:USOIL",
-    "type": "SHORT",
-    "entryNum": 68.91999816894531,
-    "tp1Num": 66.16319824218749,
-    "tp2Num": 63.40639831542969,
-    "slNum": 70.98759811401368,
-    "entry": "$68.92",
-    "target1": "$66.16",
-    "target2": "$63.41",
-    "sl": "$70.99",
-    "pnl": "+8%",
-    "status": "ACTIVE",
-    "time": "Just now",
-    "leverage": "10x"
   }
 ]
