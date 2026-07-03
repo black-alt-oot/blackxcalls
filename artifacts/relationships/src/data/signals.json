@@ -1,5 +1,23 @@
 [
   {
+    "coin": "SOL",
+    "pair": "SOL/USDT",
+    "tvSymbol": "BINANCE:SOLUSDT",
+    "type": "LONG",
+    "entryNum": 80.75,
+    "tp1Num": 83.98,
+    "tp2Num": 87.21000000000001,
+    "slNum": 78.3275,
+    "entry": "$80.75",
+    "target1": "$83.98",
+    "target2": "$87.21",
+    "sl": "$78.33",
+    "pnl": "+8%",
+    "status": "ACTIVE",
+    "time": "Just now",
+    "leverage": "4x"
+  },
+  {
     "coin": "OIL",
     "pair": "WTI/USD",
     "tvSymbol": "TVC:USOIL",
@@ -88,23 +106,5 @@
     "status": "ACTIVE",
     "time": "Just now",
     "leverage": "6x"
-  },
-  {
-    "coin": "LINK",
-    "pair": "LINK/USDT",
-    "tvSymbol": "BINANCE:LINKUSDT",
-    "type": "SHORT",
-    "entryNum": 7.29,
-    "tp1Num": 6.9984,
-    "tp2Num": 6.7068,
-    "slNum": 7.5087,
-    "entry": "$7.2900",
-    "target1": "$6.9984",
-    "target2": "$6.7068",
-    "sl": "$7.5087",
-    "pnl": "+8%",
-    "status": "ACTIVE",
-    "time": "Just now",
-    "leverage": "3x"
   }
 ]
