@@ -1,5 +1,23 @@
 [
   {
+    "coin": "LINK",
+    "pair": "LINK/USDT",
+    "tvSymbol": "BINANCE:LINKUSDT",
+    "type": "LONG",
+    "entryNum": 7.959,
+    "tp1Num": 8.27736,
+    "tp2Num": 8.59572,
+    "slNum": 7.720229999999999,
+    "entry": "$7.9590",
+    "target1": "$8.2774",
+    "target2": "$8.5957",
+    "sl": "$7.7202",
+    "pnl": "+8%",
+    "status": "ACTIVE",
+    "time": "Just now",
+    "leverage": "3x"
+  },
+  {
     "coin": "ETH",
     "pair": "ETH/USDT",
     "tvSymbol": "BINANCE:ETHUSDT",
@@ -88,23 +106,5 @@
     "status": "ACTIVE",
     "time": "Just now",
     "leverage": "10x"
-  },
-  {
-    "coin": "SOL",
-    "pair": "SOL/USDT",
-    "tvSymbol": "BINANCE:SOLUSDT",
-    "type": "SHORT",
-    "entryNum": 81.5,
-    "tp1Num": 78.24,
-    "tp2Num": 74.98,
-    "slNum": 83.94500000000001,
-    "entry": "$81.50",
-    "target1": "$78.24",
-    "target2": "$74.98",
-    "sl": "$83.95",
-    "pnl": "+8%",
-    "status": "ACTIVE",
-    "time": "Just now",
-    "leverage": "4x"
   }
 ]
