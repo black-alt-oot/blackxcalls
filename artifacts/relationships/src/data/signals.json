@@ -1,5 +1,23 @@
 [
   {
+    "coin": "BNB",
+    "pair": "BNB/USDT",
+    "tvSymbol": "BINANCE:BNBUSDT",
+    "type": "LONG",
+    "entryNum": 579.26,
+    "tp1Num": 602.4304,
+    "tp2Num": 625.6008,
+    "slNum": 561.8822,
+    "entry": "$579.26",
+    "target1": "$602.43",
+    "target2": "$625.60",
+    "sl": "$561.88",
+    "pnl": "+8%",
+    "status": "ACTIVE",
+    "time": "Just now",
+    "leverage": "6x"
+  },
+  {
     "coin": "LINK",
     "pair": "LINK/USDT",
     "tvSymbol": "BINANCE:LINKUSDT",
@@ -88,23 +106,5 @@
     "status": "ACTIVE",
     "time": "Just now",
     "leverage": "3x"
-  },
-  {
-    "coin": "OIL",
-    "pair": "WTI/USD",
-    "tvSymbol": "TVC:USOIL",
-    "type": "SHORT",
-    "entryNum": 69.16000366210938,
-    "tp1Num": 66.393603515625,
-    "tp2Num": 63.62720336914063,
-    "slNum": 71.23480377197266,
-    "entry": "$69.16",
-    "target1": "$66.39",
-    "target2": "$63.63",
-    "sl": "$71.23",
-    "pnl": "+8%",
-    "status": "ACTIVE",
-    "time": "Just now",
-    "leverage": "10x"
   }
 ]
