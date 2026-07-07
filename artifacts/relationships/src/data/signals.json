@@ -1,5 +1,23 @@
 [
   {
+    "coin": "BTC",
+    "pair": "BTC/USDT",
+    "tvSymbol": "BINANCE:BTCUSDT",
+    "type": "LONG",
+    "entryNum": 63149.37,
+    "tp1Num": 65675.3448,
+    "tp2Num": 68201.3196,
+    "slNum": 61254.8889,
+    "entry": "$63,149",
+    "target1": "$65,675",
+    "target2": "$68,201",
+    "sl": "$61,255",
+    "pnl": "+8%",
+    "status": "ACTIVE",
+    "time": "Just now",
+    "leverage": "5x"
+  },
+  {
     "coin": "BNB",
     "pair": "BNB/USDT",
     "tvSymbol": "BINANCE:BNBUSDT",
@@ -88,23 +106,5 @@
     "status": "ACTIVE",
     "time": "Just now",
     "leverage": "4x"
-  },
-  {
-    "coin": "ETH",
-    "pair": "ETH/USDT",
-    "tvSymbol": "BINANCE:ETHUSDT",
-    "type": "LONG",
-    "entryNum": 1768.52,
-    "tp1Num": 1839.2608,
-    "tp2Num": 1910.0016,
-    "slNum": 1715.4643999999998,
-    "entry": "$1,768.5",
-    "target1": "$1,839.3",
-    "target2": "$1,910",
-    "sl": "$1,715.5",
-    "pnl": "+8%",
-    "status": "ACTIVE",
-    "time": "Just now",
-    "leverage": "3x"
   }
 ]
