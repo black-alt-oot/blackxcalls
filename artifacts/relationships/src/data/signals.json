@@ -1,5 +1,23 @@
 [
   {
+    "coin": "GOLD",
+    "pair": "XAU/USD",
+    "tvSymbol": "TVC:GOLD",
+    "type": "LONG",
+    "entryNum": 4146.2001953125,
+    "tp1Num": 4312.048203125,
+    "tp2Num": 4477.896210937501,
+    "slNum": 4021.814189453125,
+    "entry": "$4,146.2",
+    "target1": "$4,312",
+    "target2": "$4,477.9",
+    "sl": "$4,021.8",
+    "pnl": "+8%",
+    "status": "ACTIVE",
+    "time": "Just now",
+    "leverage": "10x"
+  },
+  {
     "coin": "ETH",
     "pair": "ETH/USDT",
     "tvSymbol": "BINANCE:ETHUSDT",
@@ -88,23 +106,5 @@
     "status": "ACTIVE",
     "time": "Just now",
     "leverage": "10x"
-  },
-  {
-    "coin": "BNB",
-    "pair": "BNB/USDT",
-    "tvSymbol": "BINANCE:BNBUSDT",
-    "type": "LONG",
-    "entryNum": 578.78,
-    "tp1Num": 601.9312,
-    "tp2Num": 625.0824,
-    "slNum": 561.4165999999999,
-    "entry": "$578.78",
-    "target1": "$601.93",
-    "target2": "$625.08",
-    "sl": "$561.42",
-    "pnl": "+8%",
-    "status": "ACTIVE",
-    "time": "Just now",
-    "leverage": "6x"
   }
 ]
