@@ -3,6 +3,24 @@
     "coin": "GOLD",
     "pair": "XAU/USD",
     "tvSymbol": "TVC:GOLD",
+    "type": "SHORT",
+    "entryNum": 4063.800048828125,
+    "tp1Num": 3901.248046875,
+    "tp2Num": 3738.696044921875,
+    "slNum": 4185.714050292969,
+    "entry": "$4,063.8",
+    "target1": "$3,901.2",
+    "target2": "$3,738.7",
+    "sl": "$4,185.7",
+    "pnl": "+8%",
+    "status": "ACTIVE",
+    "time": "Just now",
+    "leverage": "10x"
+  },
+  {
+    "coin": "GOLD",
+    "pair": "XAU/USD",
+    "tvSymbol": "TVC:GOLD",
     "type": "LONG",
     "entryNum": 4146.2001953125,
     "tp1Num": 4312.048203125,
@@ -88,23 +106,5 @@
     "status": "ACTIVE",
     "time": "Just now",
     "leverage": "4x"
-  },
-  {
-    "coin": "GOLD",
-    "pair": "XAU/USD",
-    "tvSymbol": "TVC:GOLD",
-    "type": "LONG",
-    "entryNum": 4140.7001953125,
-    "tp1Num": 4306.328203125,
-    "tp2Num": 4471.9562109375,
-    "slNum": 4016.479189453125,
-    "entry": "$4,140.7",
-    "target1": "$4,306.3",
-    "target2": "$4,472",
-    "sl": "$4,016.5",
-    "pnl": "+8%",
-    "status": "ACTIVE",
-    "time": "Just now",
-    "leverage": "10x"
   }
 ]
