@@ -1,6 +1,6 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { sendMessage, pinMessage } from "../_lib/tg.js";
-import { readState, writeState, addSignalToGitHub } from "../_lib/gh.js";
+import { readState, writeState, addSignalToGitHub, addChannelPost } from "../_lib/gh.js";
 import { fetchAllPairs } from "../_lib/prices.js";
 import { calculateRSI, calculateEMA } from "../_lib/calc.js";
 import { formatPrice, buildChannelMessage, buildLeaderboardMessage, getTodayKey, getWeekKey } from "../_lib/fmt.js";
@@ -76,6 +76,13 @@ async function runCron() {
         await pinMessage(CHANNEL_ID, sent.message_id);
         const active: ActiveSignal = { ...signal, id: signalId, channelMsgId: sent.message_id };
         state.activeSignals = [active, ...state.activeSignals].slice(0, 20);
+        await addChannelPost({
+          id: signalId, type: "signal", pair: signal.pair,
+          direction: signal.type, entry: signal.entry,
+          tp1: signal.target1, tp2: signal.target2, sl: signal.sl,
+          leverage: signal.leverage, rsi: rsi.toFixed(1),
+          time: "Just now", ts: Date.now(),
+        }).catch(() => {});
         console.log(`Signal posted & pinned: ${p.pair} ${signalType}`);
       } catch (err) {
         console.error(`Failed to post ${p.pair} to channel:`, err);
@@ -115,6 +122,22 @@ async function runCron() {
       try {
         const sent = await sendMessage(CHANNEL_ID, lines.join("\n"), { parse_mode: "Markdown" });
         await pinMessage(CHANNEL_ID, sent.message_id);
+        const markets = results
+          .filter((r) => !r.error && r.closes.length > 0)
+          .map((r) => {
+            const rsi = calculateRSI(r.closes);
+            const ema20 = calculateEMA(r.closes, 20);
+            const ema50 = calculateEMA(r.closes, 50);
+            return {
+              pair: r.pair.pair,
+              rsi: rsi.toFixed(1),
+              trend: ema20[ema20.length - 1]! > ema50[ema50.length - 1]! ? "Bullish" : "Bearish",
+            };
+          });
+        await addChannelPost({
+          id: `briefing_${Date.now()}`, type: "briefing",
+          markets, time: "Just now", ts: Date.now(),
+        }).catch(() => {});
         console.log("Daily briefing posted ✅");
       } catch (err) { console.error("Failed to post daily briefing:", err); }
     }
