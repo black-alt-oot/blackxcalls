@@ -2,7 +2,7 @@ import Navbar from "@/components/navbar";
 import Hero from "@/components/hero";
 import Ticker from "@/components/ticker";
 import Signals from "@/components/signals";
-import Charts from "@/components/charts";
+import ChannelFeed from "@/components/channel-feed";
 import Stats from "@/components/stats";
 import Results from "@/components/results";
 import Testimonials from "@/components/testimonials";
@@ -18,7 +18,7 @@ export default function Home() {
       <Hero />
       <Ticker />
       <Signals />
-      <Charts />
+      <ChannelFeed />
       <Stats />
       <Results />
       <Testimonials />
