@@ -1,0 +1,80 @@
+[
+  {
+    "id": "post_btc_001",
+    "type": "signal",
+    "pair": "BTC/USDT",
+    "direction": "LONG",
+    "entry": "$64,200",
+    "tp1": "$67,500",
+    "tp2": "$71,000",
+    "sl": "$62,800",
+    "leverage": "5x",
+    "rsi": "36.4",
+    "time": "2h ago",
+    "ts": 1751234400000
+  },
+  {
+    "id": "post_eth_001",
+    "type": "signal",
+    "pair": "ETH/USDT",
+    "direction": "LONG",
+    "entry": "$3,420",
+    "tp1": "$3,750",
+    "tp2": "$4,100",
+    "sl": "$3,280",
+    "leverage": "3x",
+    "rsi": "38.1",
+    "time": "5h ago",
+    "ts": 1751223600000
+  },
+  {
+    "id": "post_sol_result",
+    "type": "result",
+    "pair": "SOL/USDT",
+    "direction": "LONG",
+    "outcome": "tp2",
+    "entry": "$168",
+    "tp2": "$210",
+    "pnl": "+8%",
+    "time": "1d ago",
+    "ts": 1751148000000
+  },
+  {
+    "id": "post_avax_001",
+    "type": "signal",
+    "pair": "AVAX/USDT",
+    "direction": "SHORT",
+    "entry": "$44.20",
+    "tp1": "$39.50",
+    "tp2": "$35.00",
+    "sl": "$46.80",
+    "leverage": "5x",
+    "rsi": "63.7",
+    "time": "1d ago",
+    "ts": 1751140000000
+  },
+  {
+    "id": "post_briefing_001",
+    "type": "briefing",
+    "time": "2d ago",
+    "ts": 1751061600000,
+    "markets": [
+      { "pair": "BTC/USDT", "rsi": "36.4", "trend": "Bullish" },
+      { "pair": "ETH/USDT", "rsi": "38.1", "trend": "Bullish" },
+      { "pair": "SOL/USDT", "rsi": "52.3", "trend": "Neutral" },
+      { "pair": "BNB/USDT", "rsi": "44.8", "trend": "Bullish" }
+    ]
+  },
+  {
+    "id": "post_link_result",
+    "type": "result",
+    "pair": "LINK/USDT",
+    "direction": "LONG",
+    "outcome": "tp1",
+    "entry": "$16.80",
+    "tp1": "$19.20",
+    "pnl": "+4%",
+    "time": "3d ago",
+    "ts": 1750975200000
+  }
+]
