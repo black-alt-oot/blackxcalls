@@ -1,6 +1,6 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { sendMessage, pinMessage, answerCallback, editReplyMarkup } from "../_lib/tg.js";
-import { readState, writeState, addSignalToGitHub, clearSignalsOnGitHub } from "../_lib/gh.js";
+import { readState, writeState, addSignalToGitHub, clearSignalsOnGitHub, addChannelPost } from "../_lib/gh.js";
 import { fetchAllPairs } from "../_lib/prices.js";
 import { calculateRSI, calculateEMA } from "../_lib/calc.js";
 import { formatPrice, buildChannelMessage, buildLeaderboardMessage } from "../_lib/fmt.js";
@@ -140,6 +140,13 @@ async function handleScan() {
         await pinMessage(CHANNEL_ID, sent.message_id);
         const active: ActiveSignal = { ...signal, id: signalId, channelMsgId: sent.message_id };
         state.activeSignals = [active, ...state.activeSignals].slice(0, 20);
+        await addChannelPost({
+          id: signalId, type: "signal", pair: signal.pair,
+          direction: signal.type, entry: signal.entry,
+          tp1: signal.target1, tp2: signal.target2, sl: signal.sl,
+          leverage: signal.leverage, rsi: rsi.toFixed(1),
+          time: "Just now", ts: Date.now(),
+        }).catch(() => {});
       } catch (err) {
         console.error("Failed to post to channel:", err);
       }
@@ -182,6 +189,22 @@ async function handleSummary() {
     try {
       const sent = await sendMessage(CHANNEL_ID, text, { parse_mode: "Markdown" });
       await pinMessage(CHANNEL_ID, sent.message_id);
+      const markets = results
+        .filter((r) => !r.error && r.closes.length > 0)
+        .map((r) => {
+          const rsi = calculateRSI(r.closes);
+          const ema20 = calculateEMA(r.closes, 20);
+          const ema50 = calculateEMA(r.closes, 50);
+          return {
+            pair: r.pair.pair,
+            rsi: rsi.toFixed(1),
+            trend: ema20[ema20.length - 1]! > ema50[ema50.length - 1]! ? "Bullish" : "Bearish",
+          };
+        });
+      await addChannelPost({
+        id: `briefing_${Date.now()}`, type: "briefing",
+        markets, time: "Just now", ts: Date.now(),
+      }).catch(() => {});
     } catch (err) {
       console.error("Failed to post summary:", err);
     }
@@ -350,6 +373,13 @@ async function handleCallback(query: CallbackQuery) {
         await pinMessage(CHANNEL_ID, sent.message_id);
         signal.channelMsgId = sent.message_id;
         await writeState(state, sha);
+        await addChannelPost({
+          id, type: "signal", pair: signal.pair,
+          direction: signal.type, entry: signal.entry,
+          tp1: signal.target1, tp2: signal.target2, sl: signal.sl,
+          leverage: signal.leverage, rsi: "—",
+          time: "Just now", ts: Date.now(),
+        }).catch(() => {});
       }
     } catch (err) {
       await sendMessage(ADMIN_ID, `❌ Failed to post. Error: ${String(err)}`);
@@ -391,6 +421,13 @@ async function handleCallback(query: CallbackQuery) {
       try {
         const sent = await sendMessage(CHANNEL_ID, resultMsg, { parse_mode: "Markdown" });
         await pinMessage(CHANNEL_ID, sent.message_id);
+        await addChannelPost({
+          id: `result_${id}`, type: "result", pair: sig.pair,
+          direction: sig.type, outcome,
+          entry: sig.entry,
+          tp1: sig.target1, tp2: sig.target2,
+          pnl: pnlLabel, time: "Just now", ts: Date.now(),
+        }).catch(() => {});
       } catch (err) { console.error("Failed to post result:", err); }
     }
     await sendMessage(ADMIN_ID, "✅ Result posted to channel.");
@@ -417,6 +454,10 @@ async function handleCallback(query: CallbackQuery) {
       try {
         const sent = await sendMessage(CHANNEL_ID, buildLeaderboardMessage(state.weekResults), { parse_mode: "Markdown" });
         await pinMessage(CHANNEL_ID, sent.message_id);
+        await addChannelPost({
+          id: `leaderboard_${Date.now()}`, type: "briefing",
+          markets: [], time: "Just now", ts: Date.now(),
+        }).catch(() => {});
         state.weekResults = [];
         await writeState(state, sha);
         await sendMessage(ADMIN_ID, "✅ Leaderboard posted & pinned. Weekly stats reset.");
