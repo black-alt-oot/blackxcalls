@@ -73,3 +73,41 @@ export async function clearSignalsOnGitHub(): Promise<void> {
   const { sha } = await readSignals();
   await writeSignals([], sha);
 }
+
+const POSTS_PATH = "artifacts/relationships/src/data/channel-posts.json";
+
+export interface ChannelPost {
+  id: string;
+  type: "signal" | "result" | "briefing" | "announcement";
+  pair?: string;
+  direction?: "LONG" | "SHORT";
+  entry?: string;
+  tp1?: string;
+  tp2?: string;
+  sl?: string;
+  leverage?: string;
+  rsi?: string;
+  outcome?: "tp1" | "tp2" | "sl";
+  pnl?: string;
+  markets?: { pair: string; rsi: string; trend: string }[];
+  text?: string;
+  time: string;
+  ts: number;
+}
+
+export async function addChannelPost(post: ChannelPost): Promise<void> {
+  let posts: ChannelPost[] = [];
+  let sha = "";
+  try {
+    const { content, sha: s } = await readFile(POSTS_PATH);
+    posts = content as ChannelPost[];
+    sha = s;
+  } catch {}
+  const updated = [post, ...posts].slice(0, 20);
+  const encoded = Buffer.from(JSON.stringify(updated, null, 2)).toString("base64");
+  const body: Record<string, unknown> = { message: "bot: add channel post", content: encoded };
+  if (sha) body.sha = sha;
+  await fetch(`${API}/${POSTS_PATH}`, {
+    method: "PUT", headers: HEADERS, body: JSON.stringify(body),
+  });
+}
