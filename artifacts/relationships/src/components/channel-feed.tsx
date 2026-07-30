@@ -28,6 +28,20 @@ const posts = (channelPostsData as ChannelPost[]).sort((a, b) => b.ts - a.ts);
 
 const CHANNEL_URL = "https://t.me/blackxcallz";
 
+function timeAgo(ts: number): string {
+  const diff = Date.now() - ts;
+  const mins = Math.floor(diff / 60000);
+  if (mins < 1) return "Just now";
+  if (mins < 60) return `${mins}m ago`;
+  const hrs = Math.floor(mins / 60);
+  if (hrs < 24) return `${hrs}h ago`;
+  const days = Math.floor(hrs / 24);
+  if (days < 7) return `${days}d ago`;
+  const weeks = Math.floor(days / 7);
+  if (weeks < 5) return `${weeks}w ago`;
+  return new Date(ts).toLocaleDateString("en-US", { month: "short", day: "numeric" });
+}
+
 function AnnouncementCard({ post }: { post: AnnouncementPost }) {
   const lines = post.text.split("\n").filter(Boolean);
   return (
@@ -45,7 +59,7 @@ function AnnouncementCard({ post }: { post: AnnouncementPost }) {
         >
           📢 ANNOUNCEMENT
         </span>
-        <span className="text-gray-600 text-xs">{post.time}</span>
+        <span className="text-gray-600 text-xs">{timeAgo(post.ts)}</span>
       </div>
 
       <div className="px-4 py-4 flex-1">
@@ -103,7 +117,7 @@ function SignalCard({ post }: { post: SignalPost }) {
             ⚡ SIGNAL ALERT
           </span>
         </div>
-        <span className="text-gray-600 text-xs">{post.time}</span>
+        <span className="text-gray-600 text-xs">{timeAgo(post.ts)}</span>
       </div>
 
       {/* Body */}
@@ -204,7 +218,7 @@ function ResultCard({ post }: { post: ResultPost }) {
         >
           📣 RESULT UPDATE
         </span>
-        <span className="text-gray-600 text-xs">{post.time}</span>
+        <span className="text-gray-600 text-xs">{timeAgo(post.ts)}</span>
       </div>
 
       <div className="px-4 py-4 flex-1">
@@ -282,7 +296,7 @@ function BriefingCard({ post }: { post: BriefingPost }) {
         >
           🌅 DAILY BRIEFING
         </span>
-        <span className="text-gray-600 text-xs">{post.time}</span>
+        <span className="text-gray-600 text-xs">{timeAgo(post.ts)}</span>
       </div>
 
       <div className="px-4 py-4 flex-1">
