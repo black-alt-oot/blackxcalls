@@ -21,6 +21,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       await handleCallback(update.callback_query);
     } else if (update.message) {
       await handleMessage(update.message);
+    } else if (update.channel_post) {
+      await handleChannelPost(update.channel_post);
     }
   } catch (err) {
     console.error("Webhook error:", err);
@@ -30,6 +32,14 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 interface TelegramUpdate {
   callback_query?: CallbackQuery;
   message?: Message;
+  channel_post?: ChannelPostMsg;
+}
+interface ChannelPostMsg {
+  message_id: number;
+  chat: { id: number; username?: string };
+  date: number;
+  text?: string;
+  caption?: string;
 }
 interface CallbackQuery {
   id: string;
@@ -58,6 +68,27 @@ async function handleMessage(msg: Message) {
   if (text.startsWith("/clear"))       return handleClear();
 
   if (!text.startsWith("/")) await handleWizardStep(text);
+}
+
+async function handleChannelPost(post: ChannelPostMsg) {
+  const text = post.text ?? post.caption ?? "";
+  if (!text.trim()) return; // skip media-only posts with no text
+
+  // Skip posts that were sent by the bot itself (already handled separately)
+  const botPrefixes = ["⚡ *BLACK X CALLS — SIGNAL", "📣 *BLACK X CALLS — RESULT", "🌅 *DAILY MARKET BRIEFING", "🏆 *BLACK X CALLS — WEEKLY"];
+  if (botPrefixes.some((p) => text.startsWith(p))) return;
+
+  const timeStr = new Date(post.date * 1000).toLocaleString("en-US", {
+    month: "short", day: "numeric", hour: "2-digit", minute: "2-digit", hour12: true,
+  });
+
+  await addChannelPost({
+    id: `announce_${post.message_id}`,
+    type: "announcement",
+    text,
+    time: timeStr,
+    ts: post.date * 1000,
+  }).catch((err) => console.error("Failed to save channel post:", err));
 }
 
 async function handleHelp() {
