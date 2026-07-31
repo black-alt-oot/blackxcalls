@@ -1,3 +1,5 @@
+import { useState, useEffect } from "react";
+
 const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 const winRates = [91.2, 88.5, 93.1, 95.4, 89.7, 92.3, 94.8, 96.1, 91.5, 93.7, 94.7, 92.0];
 
@@ -28,6 +30,13 @@ const recentTrades = [
 ];
 
 export default function Stats() {
+  // Re-render every 30s so daysAgoShort dates stay current
+  const [, setTick] = useState(0);
+  useEffect(() => {
+    const id = setInterval(() => setTick((n) => n + 1), 30_000);
+    return () => clearInterval(id);
+  }, []);
+
   const maxWR = Math.max(...winRates);
 
   return (
