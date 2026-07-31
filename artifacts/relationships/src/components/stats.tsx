@@ -10,15 +10,21 @@ const highlights = [
   { label: "Streak Record", val: "31 Wins", icon: "🔥" },
 ];
 
+function daysAgoShort(n: number): string {
+  const d = new Date();
+  d.setDate(d.getDate() - n);
+  return `${months[d.getMonth()]} ${d.getDate()}`;
+}
+
 const recentTrades = [
-  { pair: "BTC/USDT", result: "+24.3%", type: "LONG", date: "May 29" },
-  { pair: "SOL/USDT", result: "+41.7%", type: "LONG", date: "May 28" },
-  { pair: "ETH/USDT", result: "+18.9%", type: "LONG", date: "May 27" },
-  { pair: "AVAX/USDT", result: "+33.2%", type: "SHORT", date: "May 26" },
-  { pair: "BNB/USDT", result: "+29.6%", type: "LONG", date: "May 25" },
-  { pair: "LINK/USDT", result: "+52.1%", type: "LONG", date: "May 24" },
-  { pair: "XRP/USDT", result: "-4.2%", type: "LONG", date: "May 23" },
-  { pair: "DOT/USDT", result: "+16.8%", type: "SHORT", date: "May 22" },
+  { pair: "BTC/USDT",  result: "+24.3%", type: "LONG",  daysAgo: 1 },
+  { pair: "SOL/USDT",  result: "+41.7%", type: "LONG",  daysAgo: 2 },
+  { pair: "ETH/USDT",  result: "+18.9%", type: "LONG",  daysAgo: 3 },
+  { pair: "AVAX/USDT", result: "+33.2%", type: "SHORT", daysAgo: 4 },
+  { pair: "BNB/USDT",  result: "+29.6%", type: "LONG",  daysAgo: 5 },
+  { pair: "LINK/USDT", result: "+52.1%", type: "LONG",  daysAgo: 6 },
+  { pair: "XRP/USDT",  result: "-4.2%",  type: "LONG",  daysAgo: 7 },
+  { pair: "DOT/USDT",  result: "+16.8%", type: "SHORT", daysAgo: 8 },
 ];
 
 export default function Stats() {
@@ -95,7 +101,7 @@ export default function Stats() {
                       <span className="text-white text-sm font-semibold">{t.pair}</span>
                     </div>
                     <div className="flex items-center gap-3">
-                      <span className="text-gray-500 text-xs">{t.date}</span>
+                      <span className="text-gray-500 text-xs">{daysAgoShort(t.daysAgo)}</span>
                       <span className="font-black text-sm" style={{ color: isWin ? "#22c55e" : "#ef4444", minWidth: "60px", textAlign: "right" }}>
                         {t.result}
                       </span>
