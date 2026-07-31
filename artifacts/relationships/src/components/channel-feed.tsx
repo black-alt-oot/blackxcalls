@@ -379,7 +379,7 @@ function Skeleton() {
 export default function ChannelFeed() {
   const [posts, setPosts] = useState<ChannelPost[]>([]);
   const [loading, setLoading] = useState(true);
-  const tick = useTick(60_000); // re-render every minute so timeAgo updates
+  const tick = useTick(30_000); // re-render every 30s so "1m ago" appears within 30s of the real minute
 
   // Fetch live from GitHub — cache-busted every 5 min so new posts appear without a Vercel redeploy
   function loadPosts() {
