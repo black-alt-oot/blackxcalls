@@ -40,6 +40,13 @@ interface ChannelPostMsg {
   date: number;
   text?: string;
   caption?: string;
+  photo?: unknown[];
+  video?: unknown;
+  animation?: unknown;
+  voice?: unknown;
+  audio?: unknown;
+  document?: unknown;
+  sticker?: unknown;
 }
 interface CallbackQuery {
   id: string;
@@ -72,11 +79,23 @@ async function handleMessage(msg: Message) {
 
 async function handleChannelPost(post: ChannelPostMsg) {
   const text = post.text ?? post.caption ?? "";
-  if (!text.trim()) return; // skip media-only posts with no text
 
-  // Skip posts that were sent by the bot itself (already handled separately)
+  // Skip posts sent by the bot itself — already saved via addChannelPost in the bot flow
   const botPrefixes = ["⚡ *BLACK X CALLS — SIGNAL", "📣 *BLACK X CALLS — RESULT", "🌅 *DAILY MARKET BRIEFING", "🏆 *BLACK X CALLS — WEEKLY"];
   if (botPrefixes.some((p) => text.startsWith(p))) return;
+
+  // For media-only posts (no text/caption), build a descriptive placeholder
+  let displayText = text.trim();
+  if (!displayText) {
+    if (post.photo)     displayText = "📷 Photo posted to channel";
+    else if (post.video)     displayText = "🎥 Video posted to channel";
+    else if (post.animation) displayText = "🎞️ GIF posted to channel";
+    else if (post.voice)     displayText = "🎤 Voice message posted to channel";
+    else if (post.audio)     displayText = "🎵 Audio posted to channel";
+    else if (post.document)  displayText = "📎 File posted to channel";
+    else if (post.sticker)   displayText = "🎭 Sticker posted to channel";
+    else return; // nothing to show
+  }
 
   const timeStr = new Date(post.date * 1000).toLocaleString("en-US", {
     month: "short", day: "numeric", hour: "2-digit", minute: "2-digit", hour12: true,
@@ -85,7 +104,7 @@ async function handleChannelPost(post: ChannelPostMsg) {
   await addChannelPost({
     id: `announce_${post.message_id}`,
     type: "announcement",
-    text,
+    text: displayText,
     time: timeStr,
     ts: post.date * 1000,
   }).catch((err) => console.error("Failed to save channel post:", err));
