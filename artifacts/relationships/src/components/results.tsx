@@ -9,36 +9,42 @@ type TradeResult = {
   sl: string;
   outcome: "HIT TP2" | "HIT TP1" | "STOPPED";
   pnl: string;
-  date: string;
+  daysAgo: number;
   leverage: string;
 };
 
+function formatTradeDate(daysAgo: number): string {
+  const d = new Date();
+  d.setDate(d.getDate() - daysAgo);
+  return d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+}
+
 const trades: TradeResult[] = [
-  { pair: "BTC/USDT",  type: "LONG",  entry: "61,200", tp1: "64,500", tp2: "68,800", sl: "59,800", outcome: "HIT TP2", pnl: "+12.4%", date: "May 28, 2026", leverage: "5x" },
-  { pair: "SOL/USDT",  type: "LONG",  entry: "168.0",  tp1: "182.0",  tp2: "210.0",  sl: "158.0",  outcome: "HIT TP2", pnl: "+25.0%", date: "May 26, 2026", leverage: "3x" },
-  { pair: "ETH/USDT",  type: "LONG",  entry: "3,210",  tp1: "3,480",  tp2: "3,820",  sl: "3,080",  outcome: "HIT TP1", pnl: "+8.4%",  date: "May 24, 2026", leverage: "3x" },
-  { pair: "AVAX/USDT", type: "SHORT", entry: "42.5",   tp1: "38.0",   tp2: "33.5",   sl: "44.8",   outcome: "HIT TP2", pnl: "+21.2%", date: "May 23, 2026", leverage: "4x" },
-  { pair: "BNB/USDT",  type: "LONG",  entry: "572.0",  tp1: "610.0",  tp2: "655.0",  sl: "548.0",  outcome: "HIT TP2", pnl: "+14.5%", date: "May 22, 2026", leverage: "3x" },
-  { pair: "LINK/USDT", type: "LONG",  entry: "14.8",   tp1: "17.2",   tp2: "20.5",   sl: "13.6",   outcome: "HIT TP2", pnl: "+38.5%", date: "May 21, 2026", leverage: "5x" },
-  { pair: "XRP/USDT",  type: "LONG",  entry: "0.595",  tp1: "0.640",  tp2: "0.710",  sl: "0.565",  outcome: "STOPPED", pnl: "-5.0%",  date: "May 20, 2026", leverage: "3x" },
-  { pair: "DOT/USDT",  type: "SHORT", entry: "9.80",   tp1: "8.60",   tp2: "7.90",   sl: "10.40",  outcome: "HIT TP1", pnl: "+12.2%", date: "May 19, 2026", leverage: "4x" },
-  { pair: "ARB/USDT",  type: "LONG",  entry: "1.12",   tp1: "1.28",   tp2: "1.50",   sl: "1.02",   outcome: "HIT TP2", pnl: "+33.9%", date: "May 17, 2026", leverage: "5x" },
-  { pair: "BTC/USDT",  type: "SHORT", entry: "68,400", tp1: "64,800", tp2: "61,200", sl: "70,500", outcome: "HIT TP2", pnl: "+10.5%", date: "May 15, 2026", leverage: "5x" },
-  { pair: "NEAR/USDT", type: "LONG",  entry: "6.40",   tp1: "7.20",   tp2: "8.60",   sl: "5.90",   outcome: "HIT TP2", pnl: "+34.4%", date: "May 14, 2026", leverage: "4x" },
-  { pair: "OP/USDT",   type: "LONG",  entry: "2.85",   tp1: "3.20",   tp2: "3.70",   sl: "2.60",   outcome: "HIT TP1", pnl: "+12.3%", date: "May 13, 2026", leverage: "3x" },
-  { pair: "ETH/USDT",  type: "SHORT", entry: "3,650",  tp1: "3,400",  tp2: "3,100",  sl: "3,820",  outcome: "HIT TP2", pnl: "+15.1%", date: "May 11, 2026", leverage: "3x" },
-  { pair: "DOGE/USDT", type: "LONG",  entry: "0.148",  tp1: "0.172",  tp2: "0.205",  sl: "0.135",  outcome: "HIT TP2", pnl: "+38.5%", date: "May 9, 2026",  leverage: "5x" },
-  { pair: "SOL/USDT",  type: "SHORT", entry: "192.0",  tp1: "178.0",  tp2: "162.0",  sl: "202.0",  outcome: "STOPPED", pnl: "-5.2%",  date: "May 8, 2026",  leverage: "3x" },
-  { pair: "ATOM/USDT", type: "LONG",  entry: "9.20",   tp1: "10.50",  tp2: "12.20",  sl: "8.40",   outcome: "HIT TP2", pnl: "+32.6%", date: "May 7, 2026",  leverage: "4x" },
-  { pair: "BNB/USDT",  type: "SHORT", entry: "618.0",  tp1: "580.0",  tp2: "545.0",  sl: "642.0",  outcome: "HIT TP1", pnl: "+6.1%",  date: "May 6, 2026",  leverage: "3x" },
-  { pair: "UNI/USDT",  type: "LONG",  entry: "10.40",  tp1: "12.00",  tp2: "14.50",  sl: "9.50",   outcome: "HIT TP2", pnl: "+39.4%", date: "May 5, 2026",  leverage: "5x" },
-  { pair: "LINK/USDT", type: "SHORT", entry: "19.8",   tp1: "17.5",   tp2: "15.2",   sl: "21.2",   outcome: "HIT TP2", pnl: "+23.2%", date: "May 3, 2026",  leverage: "4x" },
-  { pair: "BTC/USDT",  type: "LONG",  entry: "58,800", tp1: "62,400", tp2: "66,500", sl: "56,500", outcome: "HIT TP2", pnl: "+13.1%", date: "May 1, 2026",  leverage: "5x" },
-  { pair: "MATIC/USDT",type: "LONG",  entry: "0.88",   tp1: "1.02",   tp2: "1.22",   sl: "0.79",   outcome: "HIT TP1", pnl: "+15.9%", date: "Apr 29, 2026", leverage: "4x" },
-  { pair: "ETH/USDT",  type: "LONG",  entry: "3,050",  tp1: "3,280",  tp2: "3,550",  sl: "2,910",  outcome: "HIT TP2", pnl: "+16.4%", date: "Apr 27, 2026", leverage: "3x" },
-  { pair: "XRP/USDT",  type: "SHORT", entry: "0.642",  tp1: "0.590",  tp2: "0.540",  sl: "0.675",  outcome: "HIT TP2", pnl: "+15.9%", date: "Apr 25, 2026", leverage: "3x" },
-  { pair: "ARB/USDT",  type: "SHORT", entry: "1.38",   tp1: "1.18",   tp2: "1.02",   sl: "1.52",   outcome: "STOPPED", pnl: "-10.1%", date: "Apr 23, 2026", leverage: "5x" },
-  { pair: "SOL/USDT",  type: "LONG",  entry: "148.0",  tp1: "165.0",  tp2: "188.0",  sl: "138.0",  outcome: "HIT TP2", pnl: "+27.0%", date: "Apr 21, 2026", leverage: "3x" },
+  { pair: "BTC/USDT",   type: "LONG",  entry: "61,200", tp1: "64,500", tp2: "68,800", sl: "59,800", outcome: "HIT TP2", pnl: "+12.4%", daysAgo: 2,  leverage: "5x" },
+  { pair: "SOL/USDT",   type: "LONG",  entry: "168.0",  tp1: "182.0",  tp2: "210.0",  sl: "158.0",  outcome: "HIT TP2", pnl: "+25.0%", daysAgo: 4,  leverage: "3x" },
+  { pair: "ETH/USDT",   type: "LONG",  entry: "3,210",  tp1: "3,480",  tp2: "3,820",  sl: "3,080",  outcome: "HIT TP1", pnl: "+8.4%",  daysAgo: 6,  leverage: "3x" },
+  { pair: "AVAX/USDT",  type: "SHORT", entry: "42.5",   tp1: "38.0",   tp2: "33.5",   sl: "44.8",   outcome: "HIT TP2", pnl: "+21.2%", daysAgo: 7,  leverage: "4x" },
+  { pair: "BNB/USDT",   type: "LONG",  entry: "572.0",  tp1: "610.0",  tp2: "655.0",  sl: "548.0",  outcome: "HIT TP2", pnl: "+14.5%", daysAgo: 8,  leverage: "3x" },
+  { pair: "LINK/USDT",  type: "LONG",  entry: "14.8",   tp1: "17.2",   tp2: "20.5",   sl: "13.6",   outcome: "HIT TP2", pnl: "+38.5%", daysAgo: 9,  leverage: "5x" },
+  { pair: "XRP/USDT",   type: "LONG",  entry: "0.595",  tp1: "0.640",  tp2: "0.710",  sl: "0.565",  outcome: "STOPPED", pnl: "-5.0%",  daysAgo: 10, leverage: "3x" },
+  { pair: "DOT/USDT",   type: "SHORT", entry: "9.80",   tp1: "8.60",   tp2: "7.90",   sl: "10.40",  outcome: "HIT TP1", pnl: "+12.2%", daysAgo: 11, leverage: "4x" },
+  { pair: "ARB/USDT",   type: "LONG",  entry: "1.12",   tp1: "1.28",   tp2: "1.50",   sl: "1.02",   outcome: "HIT TP2", pnl: "+33.9%", daysAgo: 13, leverage: "5x" },
+  { pair: "BTC/USDT",   type: "SHORT", entry: "68,400", tp1: "64,800", tp2: "61,200", sl: "70,500", outcome: "HIT TP2", pnl: "+10.5%", daysAgo: 15, leverage: "5x" },
+  { pair: "NEAR/USDT",  type: "LONG",  entry: "6.40",   tp1: "7.20",   tp2: "8.60",   sl: "5.90",   outcome: "HIT TP2", pnl: "+34.4%", daysAgo: 16, leverage: "4x" },
+  { pair: "OP/USDT",    type: "LONG",  entry: "2.85",   tp1: "3.20",   tp2: "3.70",   sl: "2.60",   outcome: "HIT TP1", pnl: "+12.3%", daysAgo: 17, leverage: "3x" },
+  { pair: "ETH/USDT",   type: "SHORT", entry: "3,650",  tp1: "3,400",  tp2: "3,100",  sl: "3,820",  outcome: "HIT TP2", pnl: "+15.1%", daysAgo: 19, leverage: "3x" },
+  { pair: "DOGE/USDT",  type: "LONG",  entry: "0.148",  tp1: "0.172",  tp2: "0.205",  sl: "0.135",  outcome: "HIT TP2", pnl: "+38.5%", daysAgo: 21, leverage: "5x" },
+  { pair: "SOL/USDT",   type: "SHORT", entry: "192.0",  tp1: "178.0",  tp2: "162.0",  sl: "202.0",  outcome: "STOPPED", pnl: "-5.2%",  daysAgo: 22, leverage: "3x" },
+  { pair: "ATOM/USDT",  type: "LONG",  entry: "9.20",   tp1: "10.50",  tp2: "12.20",  sl: "8.40",   outcome: "HIT TP2", pnl: "+32.6%", daysAgo: 23, leverage: "4x" },
+  { pair: "BNB/USDT",   type: "SHORT", entry: "618.0",  tp1: "580.0",  tp2: "545.0",  sl: "642.0",  outcome: "HIT TP1", pnl: "+6.1%",  daysAgo: 24, leverage: "3x" },
+  { pair: "UNI/USDT",   type: "LONG",  entry: "10.40",  tp1: "12.00",  tp2: "14.50",  sl: "9.50",   outcome: "HIT TP2", pnl: "+39.4%", daysAgo: 25, leverage: "5x" },
+  { pair: "LINK/USDT",  type: "SHORT", entry: "19.8",   tp1: "17.5",   tp2: "15.2",   sl: "21.2",   outcome: "HIT TP2", pnl: "+23.2%", daysAgo: 27, leverage: "4x" },
+  { pair: "BTC/USDT",   type: "LONG",  entry: "58,800", tp1: "62,400", tp2: "66,500", sl: "56,500", outcome: "HIT TP2", pnl: "+13.1%", daysAgo: 29, leverage: "5x" },
+  { pair: "MATIC/USDT", type: "LONG",  entry: "0.88",   tp1: "1.02",   tp2: "1.22",   sl: "0.79",   outcome: "HIT TP1", pnl: "+15.9%", daysAgo: 31, leverage: "4x" },
+  { pair: "ETH/USDT",   type: "LONG",  entry: "3,050",  tp1: "3,280",  tp2: "3,550",  sl: "2,910",  outcome: "HIT TP2", pnl: "+16.4%", daysAgo: 33, leverage: "3x" },
+  { pair: "XRP/USDT",   type: "SHORT", entry: "0.642",  tp1: "0.590",  tp2: "0.540",  sl: "0.675",  outcome: "HIT TP2", pnl: "+15.9%", daysAgo: 35, leverage: "3x" },
+  { pair: "ARB/USDT",   type: "SHORT", entry: "1.38",   tp1: "1.18",   tp2: "1.02",   sl: "1.52",   outcome: "STOPPED", pnl: "-10.1%", daysAgo: 37, leverage: "5x" },
+  { pair: "SOL/USDT",   type: "LONG",  entry: "148.0",  tp1: "165.0",  tp2: "188.0",  sl: "138.0",  outcome: "HIT TP2", pnl: "+27.0%", daysAgo: 39, leverage: "3x" },
 ];
 
 const outcomeStyle: Record<string, { color: string; bg: string; label: string }> = {
@@ -167,7 +173,7 @@ export default function Results() {
                       <td className="px-4 py-3 font-black whitespace-nowrap" style={{ color: isWin ? "#22c55e" : "#ef4444" }}>
                         {t.pnl}
                       </td>
-                      <td className="px-4 py-3 text-gray-500 text-xs whitespace-nowrap">{t.date}</td>
+                      <td className="px-4 py-3 text-gray-500 text-xs whitespace-nowrap">{formatTradeDate(t.daysAgo)}</td>
                     </tr>
                   );
                 })}
