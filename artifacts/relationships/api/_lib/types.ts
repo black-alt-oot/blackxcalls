@@ -42,6 +42,7 @@ export interface BotState {
   manualState: Record<string, ManualStep>;
   lastDailyBriefingDay: string;
   lastWeeklyLeaderboardWeek: string;
+  webhookSetup?: boolean;
 }
 
 export const DEFAULT_STATE: BotState = {
