@@ -27,8 +27,29 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 }
 
+const TOKEN = process.env["TELEGRAM_BOT_TOKEN"] ?? "";
+const WEBHOOK_URL = "https://blackxcalls.vercel.app/api/telegram/webhook";
+
+async function ensureWebhook(state: import("../_lib/types.js").BotState, sha: string): Promise<void> {
+  if (state.webhookSetup) return;
+  try {
+    await fetch(`https://api.telegram.org/bot${TOKEN}/setWebhook`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        url: WEBHOOK_URL,
+        allowed_updates: ["message", "callback_query", "channel_post"],
+      }),
+    });
+    await writeState({ ...state, webhookSetup: true }, sha);
+  } catch (err) {
+    console.error("Failed to register webhook:", err);
+  }
+}
+
 async function runCron() {
   const { state, sha } = await readState();
+  await ensureWebhook(state, sha);
   const now = new Date();
   const utcHour = now.getUTCHours();
   const utcDay = now.getUTCDay(); // 0 = Sunday
