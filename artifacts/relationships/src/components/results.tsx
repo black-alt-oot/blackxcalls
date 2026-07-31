@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 type TradeResult = {
   pair: string;
@@ -58,6 +58,12 @@ const FILTERS = ["ALL", "HIT TP2", "HIT TP1", "STOPPED"] as const;
 export default function Results() {
   const [filter, setFilter] = useState<string>("ALL");
   const [search, setSearch] = useState("");
+  // Re-render every 30s so formatTradeDate dates stay current
+  const [, setTick] = useState(0);
+  useEffect(() => {
+    const id = setInterval(() => setTick((n) => n + 1), 30_000);
+    return () => clearInterval(id);
+  }, []);
 
   const filtered = trades.filter((t) => {
     const matchesFilter = filter === "ALL" || t.outcome === filter;
