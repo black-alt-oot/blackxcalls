@@ -1,4 +1,4 @@
-import channelPostsData from "@/data/channel-posts.json";
+import { useState, useEffect } from "react";
 
 type AnnouncementPost = {
   id: string; type: "announcement";
@@ -24,9 +24,18 @@ type BriefingPost = {
 };
 type ChannelPost = SignalPost | ResultPost | BriefingPost | AnnouncementPost;
 
-const posts = (channelPostsData as ChannelPost[]).sort((a, b) => b.ts - a.ts);
-
 const CHANNEL_URL = "https://t.me/blackxcallz";
+const RAW_URL = "https://raw.githubusercontent.com/black-alt-oot/blackxcalls/main/artifacts/relationships/src/data/channel-posts.json";
+
+// Ticker hook — increments every 60s so timeAgo labels re-render automatically
+function useTick(intervalMs = 60_000) {
+  const [tick, setTick] = useState(0);
+  useEffect(() => {
+    const id = setInterval(() => setTick((t) => t + 1), intervalMs);
+    return () => clearInterval(id);
+  }, [intervalMs]);
+  return tick;
+}
 
 function timeAgo(ts: number): string {
   const diff = Date.now() - ts;
@@ -42,7 +51,8 @@ function timeAgo(ts: number): string {
   return new Date(ts).toLocaleDateString("en-US", { month: "short", day: "numeric" });
 }
 
-function AnnouncementCard({ post }: { post: AnnouncementPost }) {
+function AnnouncementCard({ post, tick }: { post: AnnouncementPost; tick: number }) {
+  void tick; // consumed only to trigger re-render for timeAgo
   const lines = post.text.split("\n").filter(Boolean);
   return (
     <div
@@ -97,14 +107,14 @@ function AnnouncementCard({ post }: { post: AnnouncementPost }) {
   );
 }
 
-function SignalCard({ post }: { post: SignalPost }) {
+function SignalCard({ post, tick }: { post: SignalPost; tick: number }) {
+  void tick;
   const isLong = post.direction === "LONG";
   return (
     <div
       className="rounded-2xl overflow-hidden flex flex-col"
       style={{ background: "#111111", border: "1px solid rgba(255,255,255,0.07)" }}
     >
-      {/* Header */}
       <div
         className="flex items-center justify-between px-4 py-3"
         style={{ borderBottom: "1px solid rgba(255,255,255,0.05)" }}
@@ -120,9 +130,7 @@ function SignalCard({ post }: { post: SignalPost }) {
         <span className="text-gray-600 text-xs">{timeAgo(post.ts)}</span>
       </div>
 
-      {/* Body */}
       <div className="px-4 py-4 flex-1">
-        {/* Pair + Direction */}
         <div className="flex items-center justify-between mb-4">
           <span className="text-white font-black text-xl">{post.pair}</span>
           <span
@@ -137,7 +145,6 @@ function SignalCard({ post }: { post: SignalPost }) {
           </span>
         </div>
 
-        {/* Signal Details */}
         <div className="grid grid-cols-2 gap-2 mb-4">
           {[
             { label: "Entry", value: post.entry, highlight: true },
@@ -169,7 +176,6 @@ function SignalCard({ post }: { post: SignalPost }) {
         </div>
       </div>
 
-      {/* CTA */}
       <div className="px-4 pb-4">
         <a
           href={CHANNEL_URL}
@@ -194,7 +200,8 @@ function SignalCard({ post }: { post: SignalPost }) {
   );
 }
 
-function ResultCard({ post }: { post: ResultPost }) {
+function ResultCard({ post, tick }: { post: ResultPost; tick: number }) {
+  void tick;
   const isWin = post.outcome !== "sl";
   const isLong = post.direction === "LONG";
   const outcomeLabel = post.outcome === "tp1" ? "🎯 TP1 HIT!" : post.outcome === "tp2" ? "🎯🎯 TP2 HIT!" : "🛑 SL HIT";
@@ -280,7 +287,8 @@ function ResultCard({ post }: { post: ResultPost }) {
   );
 }
 
-function BriefingCard({ post }: { post: BriefingPost }) {
+function BriefingCard({ post, tick }: { post: BriefingPost; tick: number }) {
+  void tick;
   return (
     <div
       className="rounded-2xl overflow-hidden flex flex-col"
@@ -350,7 +358,48 @@ function BriefingCard({ post }: { post: BriefingPost }) {
   );
 }
 
+function Skeleton() {
+  return (
+    <div className="rounded-2xl overflow-hidden" style={{ background: "#111111", border: "1px solid rgba(255,255,255,0.07)" }}>
+      <div className="px-4 py-3" style={{ borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
+        <div className="h-5 w-32 rounded-lg animate-pulse" style={{ background: "rgba(255,255,255,0.07)" }} />
+      </div>
+      <div className="px-4 py-4 space-y-3">
+        <div className="h-4 w-3/4 rounded animate-pulse" style={{ background: "rgba(255,255,255,0.05)" }} />
+        <div className="h-4 w-1/2 rounded animate-pulse" style={{ background: "rgba(255,255,255,0.05)" }} />
+        <div className="h-4 w-2/3 rounded animate-pulse" style={{ background: "rgba(255,255,255,0.05)" }} />
+      </div>
+      <div className="px-4 pb-4">
+        <div className="h-10 w-full rounded-xl animate-pulse" style={{ background: "rgba(255,255,255,0.05)" }} />
+      </div>
+    </div>
+  );
+}
+
 export default function ChannelFeed() {
+  const [posts, setPosts] = useState<ChannelPost[]>([]);
+  const [loading, setLoading] = useState(true);
+  const tick = useTick(60_000); // re-render every minute so timeAgo updates
+
+  // Fetch live from GitHub — cache-busted every 5 min so new posts appear without a Vercel redeploy
+  function loadPosts() {
+    const bust = Math.floor(Date.now() / 300_000); // changes every 5 min
+    fetch(`${RAW_URL}?t=${bust}`)
+      .then((r) => r.json())
+      .then((data: ChannelPost[]) => {
+        setPosts([...data].sort((a, b) => b.ts - a.ts));
+        setLoading(false);
+      })
+      .catch(() => setLoading(false));
+  }
+
+  useEffect(() => {
+    loadPosts();
+    // Refetch every 5 minutes while page is open
+    const id = setInterval(loadPosts, 300_000);
+    return () => clearInterval(id);
+  }, []);
+
   return (
     <section id="channel" className="py-24 px-4 sm:px-6" style={{ background: "#0a0a0a" }}>
       <div className="max-w-7xl mx-auto">
@@ -374,14 +423,20 @@ export default function ChannelFeed() {
 
         {/* Posts Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-12">
-          {posts.map((post) => (
-            <div key={post.id}>
-              {post.type === "signal" && <SignalCard post={post as SignalPost} />}
-              {post.type === "result" && <ResultCard post={post as ResultPost} />}
-              {post.type === "briefing" && <BriefingCard post={post as BriefingPost} />}
-              {post.type === "announcement" && <AnnouncementCard post={post as AnnouncementPost} />}
-            </div>
-          ))}
+          {loading ? (
+            Array.from({ length: 6 }).map((_, i) => <Skeleton key={i} />)
+          ) : posts.length === 0 ? (
+            <div className="col-span-3 text-center text-gray-600 py-16">No posts yet.</div>
+          ) : (
+            posts.map((post) => (
+              <div key={post.id}>
+                {post.type === "signal"       && <SignalCard       post={post as SignalPost}       tick={tick} />}
+                {post.type === "result"       && <ResultCard       post={post as ResultPost}       tick={tick} />}
+                {post.type === "briefing"     && <BriefingCard     post={post as BriefingPost}     tick={tick} />}
+                {post.type === "announcement" && <AnnouncementCard post={post as AnnouncementPost} tick={tick} />}
+              </div>
+            ))
+          )}
         </div>
 
         {/* Follow CTA */}
